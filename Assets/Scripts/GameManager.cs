@@ -24,11 +24,31 @@ public class GameManager : MonoBehaviour
     {
 
         
-        LoadingOps.Add(SceneManager.LoadSceneAsync("TestScene", LoadSceneMode.Additive));
+        LoadingOps.Add(SceneManager.LoadSceneAsync("MainMenuScene", LoadSceneMode.Additive));
 
         StartCoroutine(LoadingCheck().GetEnumerator());
 
     }
+    /*
+
+    public void StageSelectSceneLoad()
+    {
+
+        LoadingOps.Add(SceneManager.UnloadSceneAsync("MainMenuScene"));
+        LoadingOps.Add(SceneManager.LoadSceneAsync("StageSelectScene", LoadSceneMode.Additive));
+
+        StartCoroutine(LoadingCheck().GetEnumerator());
+
+    }
+
+    public void MainMenuSceneLoad()
+    {
+        LoadingOps.Add(SceneManager.UnloadSceneAsync("StageSelectScene"));
+        LoadingOps.Add(SceneManager.LoadSceneAsync("MainMenuScene", LoadSceneMode.Additive));
+
+        StartCoroutine(LoadingCheck().GetEnumerator());
+    }
+    */
 
     IEnumerable LoadingCheck()
     {
