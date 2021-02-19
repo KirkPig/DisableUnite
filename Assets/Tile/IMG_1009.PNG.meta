@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Tile/IMG_1009.PNG.meta
+guid: 3bdca59a920ca364ea90fccc6730aa40
+=======
 guid: 56113dbc26d7fbd418ab899f25826219
+>>>>>>> 746d4ffa55ca0fe8ea53e9830a486df933188c1e:Assets/Tile/moveableblock.PNG.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
