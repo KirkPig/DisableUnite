@@ -9,12 +9,9 @@ public class StageManager : MonoBehaviour
     public GameObject BatPrefab;
     public GameObject SimePrefab;
     public GameObject PlantPrefab;
-
+    public CharacterManager characterManager;
     private GameObject[][] Map = new GameObject[32][];
-
-    public GameObject Bat;
-    public GameObject Slime;
-    public GameObject Plant;
+    
 
     private void Awake()
     {
@@ -22,6 +19,7 @@ public class StageManager : MonoBehaviour
         {
             Map[i] = new GameObject[32];
         }
+        characterManager = new CharacterManager();
     }
 
     // Start is called before the first frame update
@@ -55,10 +53,12 @@ public class StageManager : MonoBehaviour
         /*
          * 
          */
-        Bat = Instantiate(BatPrefab, new Vector3(2, -2, transform.position.z), Quaternion.identity);
-        Plant = Instantiate(PlantPrefab, new Vector3(2, -6, transform.position.z), Quaternion.identity);
-        Slime = null;
-
+        GameObject Bat = Instantiate(BatPrefab, new Vector3(2, -2, transform.position.z), Quaternion.identity);
+        Bat.GetComponent<BatCharacter>().stage = this;
+        GameObject Plant = Instantiate(PlantPrefab, new Vector3(2, -6, transform.position.z), Quaternion.identity);
+        GameObject Slime = null;
+        characterManager.setCharacter(Plant, Bat, Slime);
+        
 
 
 
