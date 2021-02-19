@@ -21,6 +21,14 @@ public class SlimeCharacter : MonoBehaviour, ICharacter
     {
         
     }
+    public void getVision()
+    {
+        throw new System.NotImplementedException();
+    }
+    public GameObject getGameObject()
+    {
+        return gameObject;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -45,16 +53,10 @@ public class SlimeCharacter : MonoBehaviour, ICharacter
     {
         position = new KeyValuePair<int, int>(position.Key + diffVector.Key, position.Value + diffVector.Value);
         //interact with something
-        if(KeyValuePair<int, int>.Equals(characterManager.characters[0].getPosition(), position))
-        {
-            //do something
-        }
-        else if(KeyValuePair<int, int>.Equals(characterManager.characters[1].getPosition(), position))
-        {
-            //do something
-        }
         TileMap.Tile tile = GetComponent<MapController>().tilemap[position.Key][position.Value];
         
         return ;
     }
+
+    
 }

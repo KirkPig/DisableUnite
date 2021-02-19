@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BatCharacter : MonoBehaviour, ICharacter
+public class BatCharacter : MonoBehaviour, ICharacter, Interactable
 {
     KeyValuePair<int, int> position;
     public KeyValuePair<int, int> getPosition()
@@ -12,13 +12,7 @@ public class BatCharacter : MonoBehaviour, ICharacter
     bool notInRange(int x, int y) { return false; }
     public void move(KeyValuePair<int, int> direction)
     {
-       // GameObject goj;
-        //if(notInRange(position.Key + direction.Key, position.Value + direction.Value)) { return;  }
-        /*if(goj == null)
-        {
-            setPosition(position.Key + direction.Key, position.Value + direction.Value);
-        }*/
-        // if(goj is ICharacter){ }
+       
         
     }
 
@@ -37,5 +31,10 @@ public class BatCharacter : MonoBehaviour, ICharacter
     void Update()
     {
         
+    }
+
+    public int interact(bool isCharacter, KeyValuePair<int, int> direction)
+    {
+        return 0;
     }
 }
