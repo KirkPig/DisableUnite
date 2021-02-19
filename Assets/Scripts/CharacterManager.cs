@@ -2,26 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterManager : MonoBehaviour
+public class CharacterManager 
 {
-    public ICharacter[] characters; // tree, bat, slime
+    public GameObject[] characters; // tree, bat, slime
     public int pointer;
-    public ICharacter selectedCharacter;
+    public GameObject selectedCharacter;
     // Start is called before the first frame update
-    void Start()
+    public CharacterManager() { pointer = 0; characters = new GameObject[3]; }
+    public void setCharacter(GameObject a, GameObject b, GameObject c)
     {
-        characters = new ICharacter[3];
-        pointer = 0;
-        //selectedCharacter = characters[pointer];
+        
+        characters[0] = a;
+        characters[1] = b;
+        characters[2] = c;
+        selectedCharacter = characters[pointer];
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        selectedCharacter = characters[pointer]; 
-    }
+
     public void SwitchCharacter()
     {
         pointer ^= 1;
+        selectedCharacter = characters[pointer];
     }
 }
