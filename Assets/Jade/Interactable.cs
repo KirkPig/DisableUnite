@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface Interactable {
-    int interact(bool isCharacter, Vector3 direction);
+    int interact(bool isFirstHand, Vector3 direction);
     /*return For Character     |  For Block
              1: Able to move   |  1: Able to move
              2: Can't move     |  2: Can't move

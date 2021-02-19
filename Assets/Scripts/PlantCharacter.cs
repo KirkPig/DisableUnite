@@ -19,29 +19,43 @@ public class PlantCharacter : MonoBehaviour, ICharacter, Interactable
 
     public void move(Vector3 newPosition)
     {
-        throw new System.NotImplementedException();
+        //do nothing
+        
     }
 
     public void setPosition(int x, int y)
     {
         throw new System.NotImplementedException();
     }
-    //Eind ICharacter
+    //End ICharacter
 
     //Begin Interactable
-    public int interact(bool isCharacter, Vector3 direction)
+    public int interact(bool isFirstHand, Vector3 direction)
     {
         position = gameObject.transform.position;
-        if (!isCharacter) return 2;
+        if (!isFirstHand) return 2;
         Vector3 newPosition = position + direction;
         int x = (int)newPosition.x, y = (int)newPosition.y;
-        if (stage.GetMapGameObject(x, y) == null)
+        GameObject inNewPosition = stage.GetMapGameObject(x, y);
+        if (inNewPosition == null)
         {
-            Debug.Log("Still here");
-            Debug.Log(x.ToString() + " " + y.ToString());
-            //stage.SetMapGameObject(x, y, gameObject);
+            stage.SetMapGameObject(x, y, gameObject);
+            stage.SetMapGameObject((int) position.x, (int) position.y, null);
             gameObject.transform.position = newPosition;
             return 1;
+        }
+        else if(inNewPosition.GetComponent<Interactable>()!= null)
+        {
+            int result = inNewPosition.GetComponent<Interactable>().interact(false, direction);
+            if(result == 1)
+            {
+                stage.SetMapGameObject(x, y, gameObject);
+                stage.SetMapGameObject((int)position.x, (int)position.y, null);
+                gameObject.transform.position = newPosition;
+                return 1;
+            }
+            else if(result == 3) 
+                return 3;
         }
         return 2;
     }

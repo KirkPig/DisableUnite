@@ -11,7 +11,7 @@ public class BatCharacter : MonoBehaviour, ICharacter, Interactable
     {
         position = gameObject.transform.position;
         int x = (int) newPosition.x, y = (int) newPosition.y;
-        Debug.Log(x.ToString() + " " + y.ToString());
+        //Debug.Log(x.ToString() + " " + y.ToString());
         GameObject inNewPosition = stage.GetMapGameObject(x, y);
         if(inNewPosition == null)
         {
@@ -55,9 +55,34 @@ public class BatCharacter : MonoBehaviour, ICharacter, Interactable
     //End ICharacter
 
     //begin Interactable
-    public int interact(bool isCharacter, Vector3 direction)
+    public int interact(bool isFirstHand, Vector3 direction)
     {
-        return 0;
+        position = gameObject.transform.position;
+        if (!isFirstHand) return 2;
+        Vector3 newPosition = position + direction;
+        int x = (int)newPosition.x, y = (int)newPosition.y;
+        GameObject inNewPosition = stage.GetMapGameObject(x, y);
+        if (inNewPosition == null)
+        {
+            stage.SetMapGameObject(x, y, gameObject);
+            stage.SetMapGameObject((int)position.x, (int)position.y, null);
+            gameObject.transform.position = newPosition;
+            return 1;
+        }
+        else if (inNewPosition.GetComponent<Interactable>() != null)
+        {
+            int result = inNewPosition.GetComponent<Interactable>().interact(false, direction);
+            if (result == 1)
+            {
+                stage.SetMapGameObject(x, y, gameObject);
+                stage.SetMapGameObject((int)position.x, (int)position.y, null);
+                gameObject.transform.position = newPosition;
+                return 1;
+            }
+            else if (result == 3)
+                return 3;
+        }
+        return 2;
     }
     //end Interactable
     void Start()
