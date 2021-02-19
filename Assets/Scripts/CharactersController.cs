@@ -9,11 +9,13 @@ public class CharactersController : MonoBehaviour
     public float walkCooldownTime;
     public float switchCooldown;
     public float switchCooldownTime;
+    public GameObject mapManager;
     public CharacterManager characterManager;
     void Start()
     {
         spawn();
-        characterManager = GetComponent<CharacterManager>();
+        characterManager =  mapManager.GetComponent<StageManager>().characterManager;
+         
         walkCooldown = 0f;
     }
     // Update is called once per frame
@@ -36,7 +38,9 @@ public class CharactersController : MonoBehaviour
                     x = -1;
                 }
                 else x = 1;
-                characterManager.selectedCharacter.move(new KeyValuePair<int, int>(0, x));
+                characterManager.selectedCharacter.GetComponent<ICharacter>().move(new Vector3(characterManager.selectedCharacter.transform.position.x, 
+                                                                            characterManager.selectedCharacter.transform.position.y + x, 
+                                                                            characterManager.selectedCharacter.transform.position.z));
                 walkCooldown = walkCooldownTime;
 
             }
@@ -48,7 +52,9 @@ public class CharactersController : MonoBehaviour
                     x = -1;
                 }
                 else x = 1;
-                characterManager.selectedCharacter.move(new KeyValuePair<int, int>(x, 0));
+                characterManager.selectedCharacter.GetComponent<ICharacter>().move(new Vector3(characterManager.selectedCharacter.transform.position.x + 
+                                                                                    x, characterManager.selectedCharacter.transform.position.y , 
+                                                                                     characterManager.selectedCharacter.transform.position.z));
                 walkCooldown = walkCooldownTime;
             }
         }
@@ -57,9 +63,9 @@ public class CharactersController : MonoBehaviour
     {
         // do something
     }
-    void alarm(KeyValuePair<int, int> newPosition)
+    void alarm(Vector3 newPosition)
     {
-        characterManager.characters[2].move(newPosition);
+        characterManager.characters[2].GetComponent<ICharacter>().move(newPosition);
     }
 
 }

@@ -4,27 +4,40 @@ using UnityEngine;
 
 public class BatCharacter : MonoBehaviour, ICharacter, Interactable
 {
-    KeyValuePair<int, int> position;
-    public KeyValuePair<int, int> getPosition()
+    //begin ICharacter 
+    public Vector3 position;
+    public StageManager stage;
+    public void move(Vector3 newPosition)
+    {
+        gameObject.transform.position = newPosition;
+    }
+    public void getVision()
+    {
+    
+    }
+    public void setPosition(int x, int y)
+    {
+        
+    }
+    public Vector3 getPosition()
     {
         return position;
     }
-    bool notInRange(int x, int y) { return false; }
-    public void move(KeyValuePair<int, int> direction)
+   public GameObject getGameObject()
     {
-       
-        
+        return gameObject;
     }
+    //End ICharacter
 
-    public void setPosition(int x, int y)
+    //begin Interactable
+    public int interact(bool isCharacter, KeyValuePair<int, int> direction)
     {
-
+        return 0;
     }
-
-    // Start is called before the first frame update
+    //end Interactable
     void Start()
     {
-        
+        position = transform.position;
     }
 
     // Update is called once per frame
@@ -33,8 +46,7 @@ public class BatCharacter : MonoBehaviour, ICharacter, Interactable
         
     }
 
-    public int interact(bool isCharacter, KeyValuePair<int, int> direction)
-    {
-        return 0;
-    }
+
+
+    
 }
