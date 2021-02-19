@@ -30,33 +30,10 @@ public class StageManager : MonoBehaviour
 
 
         /*
-         * Floor Generated
-         */
-        for (int i = 0;i<9;i++)
-        {
-            for (int j = 0;j < 9;j++)
-            {
-                if (i == 4 && j == 4)
-                {
-
-                }
-                else
-                {
-
-                    GameObject NewGameObject = Instantiate(FloorPrefab, new Vector3(j, -i, transform.position.z), Quaternion.identity, transform);
-                    NewGameObject.name = "Floor" + i.ToString() + "_" + j.ToString();
-
-                    Map[i][j] = NewGameObject;
-
-                }
-            }
-        }
-
-        /*
          * 
          */
-        Bat = Instantiate(BatPrefab, new Vector3(2, -2, transform.position.z), Quaternion.identity);
-        Plant = Instantiate(PlantPrefab, new Vector3(2, -6, transform.position.z), Quaternion.identity);
+        Bat = Instantiate(BatPrefab, new Vector3(9, -9, transform.position.z), Quaternion.identity);
+        Plant = Instantiate(PlantPrefab, new Vector3(9, -13, transform.position.z), Quaternion.identity);
         Slime = null;
 
 
