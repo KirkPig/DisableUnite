@@ -7,8 +7,8 @@ using TileMap;
 public class MapController : MonoBehaviour
 {
     private const int V = 15;
-    List<int> key_recieve = new List<int>();
-    Tile [][] tilemap = new Tile[15][];
+    public List<int> key_recieve = new List<int>();
+    public Tile [][] tilemap = new Tile[15][];
 
     // Start is called before the first frame update
     void Start()
