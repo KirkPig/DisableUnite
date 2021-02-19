@@ -5,49 +5,61 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     // Start is called before the first frame update
-    public ICharacter bat;
-    public ICharacter tree;
-    public ICharacter slime;
-    public ICharacter selectedCharacter;
-    public float cooldown;
-    public float cooldownTime;
+    public float walkCooldown;
+    public float walkCooldownTime;
+    public float switchCooldown;
+    public float switchCooldownTime;
+    public CharacterManager characterManager;
     void Start()
     {
-        cooldown = 0f;
+        spawn();
+        characterManager = GetComponent<CharacterManager>();
+        walkCooldown = 0f;
     }
-
     // Update is called once per frame
     void Update()
     {
-        cooldown = Mathf.Max(0f, cooldown - Time.deltaTime);
-        if (cooldown > 0f) return; 
-        if (Input.GetAxis("Vertical") != 0)
+        walkCooldown = Mathf.Max(0f, walkCooldown - Time.deltaTime);
+        switchCooldown = Mathf.Max(0f, switchCooldown - Time.deltaTime);
+        if (switchCooldown <= 0 && Input.GetKeyDown(KeyCode.Space))
         {
-            int x;
-            if (Input.GetAxis("Vertical") < 0)
+            characterManager.SwitchCharacter();
+            switchCooldown = switchCooldownTime;
+        }
+        else if (walkCooldown <= 0f && characterManager.pointer == 1)
+        {
+            if (Input.GetAxis("Vertical") != 0)
             {
-                x = -1;
-            }
-            else x = 1;
-            selectedCharacter.move(new KeyValuePair<int, int>(0, x));
-            cooldown = cooldownTime;
+                int x;
+                if (Input.GetAxis("Vertical") < 0)
+                {
+                    x = -1;
+                }
+                else x = 1;
+                characterManager.selectedCharacter.move(new KeyValuePair<int, int>(0, x));
+                walkCooldown = walkCooldownTime;
 
-        }
-        else if(Input.GetAxis("Horizontal") !=  0)
-        {
-            int x;
-            if (Input.GetAxis("Horizontal") < 0)
-            {
-                x = -1;
             }
-            else x = 1;
-            selectedCharacter.move(new KeyValuePair<int, int>(x, 0));
-            cooldown = cooldownTime;
+            else if (Input.GetAxis("Horizontal") != 0)
+            {
+                int x;
+                if (Input.GetAxis("Horizontal") < 0)
+                {
+                    x = -1;
+                }
+                else x = 1;
+                characterManager.selectedCharacter.move(new KeyValuePair<int, int>(x, 0));
+                walkCooldown = walkCooldownTime;
+            }
         }
+    }
+    void spawn()
+    {
+        // do something
     }
     void alarm(KeyValuePair<int, int> newPosition)
     {
-        slime.move(newPosition);
+        characterManager.characters[2].move(newPosition);
     }
 
 }

@@ -6,6 +6,7 @@ public class SlimeCharacter : MonoBehaviour, ICharacter
 {
     KeyValuePair<int, int> position;
     KeyValuePair<int, int> newPosition;
+    CharacterManager characterManager;
     public KeyValuePair<int, int> getPosition()
     {
         return position;
@@ -13,7 +14,7 @@ public class SlimeCharacter : MonoBehaviour, ICharacter
 
     public void move(KeyValuePair<int, int> direction)
     {
-        newPosition = position;
+        newPosition = direction;
     }
 
     public void setPosition(int x, int y)
@@ -24,7 +25,7 @@ public class SlimeCharacter : MonoBehaviour, ICharacter
     // Start is called before the first frame update
     void Start()
     {
-        
+        characterManager = GetComponent<CharacterManager>();
     }
 
     // Update is called once per frame
@@ -44,7 +45,16 @@ public class SlimeCharacter : MonoBehaviour, ICharacter
     {
         position = new KeyValuePair<int, int>(position.Key + diffVector.Key, position.Value + diffVector.Value);
         //interact with something
-
+        if(KeyValuePair<int, int>.Equals(characterManager.characters[0].getPosition(), position))
+        {
+            //do something
+        }
+        else if(KeyValuePair<int, int>.Equals(characterManager.characters[1].getPosition(), position))
+        {
+            //do something
+        }
+        TileMap.Tile tile = GetComponent<MapController>().tilemap[position.Key][position.Value];
+        
         return ;
     }
 }
