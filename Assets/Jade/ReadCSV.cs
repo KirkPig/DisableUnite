@@ -8,7 +8,7 @@ public class ReadCSV : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ReadCSVFile()
+        //ReadCSVFile()
     }
 
     // Update is called once per frame
