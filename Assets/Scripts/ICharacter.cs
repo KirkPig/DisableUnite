@@ -5,9 +5,10 @@ using UnityEngine;
 public interface ICharacter
 {
     
-    void move(KeyValuePair<int, int> direction);
+    void move(Vector3 newPosition);
+    void getVision();
     void setPosition(int x, int y);
-    KeyValuePair<int,int> getPosition();
+    Vector3 getPosition();
 
         
 }
