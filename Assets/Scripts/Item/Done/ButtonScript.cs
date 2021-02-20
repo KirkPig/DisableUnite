@@ -12,10 +12,10 @@ public class ButtonScript : MonoBehaviour
     public List<Vector2Int> conveyer; //please enter begin and end of each conveyer next to each other
     public float cooldown;
     public float cooldownTime;
-    public StageManager stage;
+    public GameController stage;
     void Start()
     {
-        stage = GameObject.Find("MapManager").GetComponent<StageManager>();
+        stage = GameObject.Find("MapManager").GetComponent<GameController>();
     }
 
     // Update is called once per frame

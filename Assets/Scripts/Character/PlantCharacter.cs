@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlantCharacter : MonoBehaviour, ICharacter, Interactable
 {
     Vector3 position;
-    public StageManager stage;
+    public GameController stage;
     //Begin Icharacter
     public Vector3 getPosition()
     {
@@ -64,7 +64,7 @@ public class PlantCharacter : MonoBehaviour, ICharacter, Interactable
     // Start is called before the first frame update
     void Start()
     {
-        stage = GameObject.Find("MapManager").GetComponent<StageManager>();
+        stage = GameObject.Find("MapManager").GetComponent<GameController>();
     }
 
     // Update is called once per frame
