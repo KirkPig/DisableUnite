@@ -9,12 +9,14 @@ public class CharactersController : MonoBehaviour
     public float walkCooldownTime;
     public float switchCooldown;
     public float switchCooldownTime;
-    public GameObject mapManager;
     public CharacterManager characterManager;
     void Start()
     {
         spawn();
-        characterManager =  mapManager.GetComponent<GameController>().characterManager;
+        characterManager =  GameObject
+                            .Find("MapManager")
+                            .GetComponent<GameController>()
+                             .characterManager;
          
         walkCooldown = 0f;
     }
