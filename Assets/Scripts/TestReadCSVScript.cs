@@ -41,7 +41,40 @@ public class TestReadCSVScript : MonoBehaviour
                         newKey.name = "Key" + i.ToString() + "_" + j.ToString();
                         break;
                     case 8:
-                        //Door
+                        if(Map[i,j] == "8.1")
+                        {
+                            GameObject newDoor1 = Instantiate(TilePrefabs.Door1Prefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newDoor1.name = "newDoor1 " + i.ToString() + "_" + j.ToString();
+                            break;
+                        }
+                        if(Map[i,j] == "8.2")
+                        {
+                            GameObject newDoor2 = Instantiate(TilePrefabs.Door2Prefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newDoor2.name = "newDoor1 " + i.ToString() + "_" + j.ToString();
+                            break;
+                        }
+                        if(Map[i,j] == "8.3")
+                        {
+                            GameObject newDoor3 = Instantiate(TilePrefabs.Door3Prefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newDoor3.name = "newDoor1 " + i.ToString() + "_" + j.ToString();
+                            break;
+                        }
+                        if(Map[i,j] == "8.4")
+                        {
+                            GameObject newDoor4 = Instantiate(TilePrefabs.Door4Prefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newDoor4.name = "newDoor1 " + i.ToString() + "_" + j.ToString();
+                            break;
+                        }
+                        if(Map[i,j] == "8.5")
+                        {
+                            GameObject newDoor5 = Instantiate(TilePrefabs.Door5Prefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newDoor5.name = "newDoor1 " + i.ToString() + "_" + j.ToString();
+                            break;
+                        }
+                        break;
+                    case 13:
+                        GameObject newAlarm= Instantiate(TilePrefabs.AlarmPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                        newAlarm.name = "Alarm" + i.ToString() + "_" + j.ToString();
                         break;
                     case 14:
                         GameObject newOpenGate = Instantiate(TilePrefabs.GatePrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
