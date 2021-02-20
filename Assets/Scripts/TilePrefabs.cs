@@ -15,6 +15,7 @@ public class TilePrefabs
     public static GameObject Door3Prefab = Resources.Load("Prefabs/Door3", typeof(GameObject)) as GameObject;
     public static GameObject Door4Prefab = Resources.Load("Prefabs/Door4", typeof(GameObject)) as GameObject;
     public static GameObject Door5Prefab = Resources.Load("Prefabs/Door5", typeof(GameObject)) as GameObject;
+    public static GameObject BlockPrefab = Resources.Load("Prefabs/Block", typeof(GameObject)) as GameObject;
 
     public static GameObject PlantPrefab = Resources.Load("Prefabs/Plant", typeof(GameObject)) as GameObject;
     public static GameObject BatPrefab = Resources.Load("Prefabs/Bat", typeof(GameObject)) as GameObject;

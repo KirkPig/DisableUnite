@@ -72,6 +72,10 @@ public class TestReadCSVScript : MonoBehaviour
                             break;
                         }
                         break;
+                    case 12:
+                        GameObject newBlock= Instantiate(TilePrefabs.BlockPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                        newBlock.name = "Block" + i.ToString() + "_" + j.ToString();
+                        break;
                     case 13:
                         GameObject newAlarm= Instantiate(TilePrefabs.AlarmPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
                         newAlarm.name = "Alarm" + i.ToString() + "_" + j.ToString();
