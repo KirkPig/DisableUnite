@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
     public GameObject BatVision;
     private GameObject[][] Map = new GameObject[32][];
     private GameObject Bat;
+    private List<Vector3> bat_vision;
     
 
     private void Awake()
@@ -56,7 +57,6 @@ public class GameController : MonoBehaviour
 
 
     }
-
     private void GenerateMap()
     {
 
@@ -222,6 +222,7 @@ public class GameController : MonoBehaviour
         {
             currentRhytm = (currentRhytm + 1) % 6;
             drum = 0;
+            getNoise();
         }
         if (characterManager.selectedCharacter == Bat)
         {
@@ -232,5 +233,22 @@ public class GameController : MonoBehaviour
             BatVision.SetActive(false);
         }
 
+    }
+
+    void getNoise(){
+        bat_vision = new List<Vector3>();
+        for (int i = 0;i< 32;i++)
+        {
+            for (int j = 0;j< 32;j++)
+            {
+                var alarm = Map[i][j].GetComponent<AlarmScript>();
+                if(alarm != null){
+                    bat_vision.Add(Map[i][j].transform.position);
+                }
+                //var clock = Map[i][j].GetComponent<ClockScript>();
+                //var plant = Map[i][j].GetComponent<PlantCharacter>();
+            }
+        }
+        Bat.GetComponent<BatCharacter>().getVision(bat_vision);
     }
 }
