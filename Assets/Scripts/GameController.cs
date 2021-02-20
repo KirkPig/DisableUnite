@@ -7,7 +7,8 @@ public class GameController : MonoBehaviour
 {
 
     public TextAsset csvFile;
-
+    public TextAsset spawnFile;
+    public TextAsset buttonFile;
     public GameObject MainCamera;
     public bool gateStatus;
     public int key;
@@ -40,28 +41,86 @@ public class GameController : MonoBehaviour
          */
 
         GenerateMap();
+        GenerateButton();
+        Spawn();
 
-        Vector2 batStart = new Vector2(9, 20);
-        Vector2 plantStart = new Vector2(9, 22);
-
-        Bat = Instantiate(TilePrefabs.BatPrefab, new Vector3(batStart.x, batStart.y, transform.position.z), Quaternion.identity);
-        GameObject Plant = Instantiate(TilePrefabs.PlantPrefab, new Vector3(plantStart.x, plantStart.y, transform.position.z), Quaternion.identity);
-        // GameObject Slime = Instantiate(TilePrefabs.SlimePrefab, new Vector3(7, 15, transform.position.z), Quaternion.identity);
-        // Slime.GetComponent<SlimeCharacter>().targetPosition = Slime.transform.position;
-        characterManager.setCharacter(Plant, Bat, null);
         drum = 0f;
-        Map[(int)batStart.x][(int)batStart.y] = Bat;
-        Map[(int)plantStart.x][(int)plantStart.y] = Plant;
-        // Map[7][15] = Slime;
         key = 0;
 
 
+    }
+    private void GenerateButton()
+    {
+        string[,] A = ReadCSV.ReadCSVFileNoReverse(buttonFile.text);
+        int n = (int) float.Parse(A[0, 0]), it = 1;
+        for(int i = 0; i < n; i++)
+        {
+            int x = int.Parse(A[it, 0]), y = int.Parse(A[it, 1]);
+            GameObject button = Instantiate(TilePrefabs.ButtonPrefab, new Vector3((float)x, (float)y, transform.position.z), Quaternion.identity);
+            button.name = "Button" + x.ToString() + "_" + y.ToString();
+            //get isAlarm
+            int isAlarm = (int) float.Parse( A[it, 0] );
+            ButtonScript buttonScript = button.GetComponent<ButtonScript>();
+            if(isAlarm == 1)
+            {
+                buttonScript.isAlarm = true;
+                it++;
+                buttonScript.alarmDestination = new Vector3(float.Parse(A[it, 0]), float.Parse(A[it, 1]));
+            }
+            it++;
+            buttonScript.conveyer = new List<Vector2Int>();
+            int conveyerLength = int.Parse(A[it, 0]);
+            it++;
+            for(int j = 0; j < conveyerLength; j ++, it ++)
+            {
+                int begx = int.Parse(A[it, 0]), begy = int.Parse(A[it, 1]);
+                buttonScript.conveyer.Add(new Vector2Int(begx, begy));
+                int endx = int.Parse(A[it, 2]), endy = int.Parse(A[it, 3]);
+                buttonScript.conveyer.Add(new Vector2Int(endx, endy));
+                int dx = (endx - begx) == 0 ? 0 : (endx - begx < 0 ? -1 : 1);
+                int dy = (endy - begy) == 0 ? 0 : (endx - begx < 0 ? -1 : 1);
+                for(;begx != endx || begy != endy; begx += dx, begy += dy)
+                {
+                    GameObject convayerPrefab;
+                    //set convayerPrefab  4 cases for sprite
+                    
+                    //end set 
+                    Instantiate(convayerPrefab, new Vector3((float) begx, (float) begy, transform.position.z), Quaternion.identity);
+
+                }
+            }
+            buttonScript.cooldownTime = float.Parse(A[it, 0]);
+            it++;
+        }
+    }
+    private void Spawn()
+    {
+        string[,] A = ReadCSV.ReadCSVFileNoReverse(spawnFile.text);
+        for(int i = 0; i < 6; i += 2)
+        {
+            float pos_x =  float.Parse(A[0, i]), pos_y = float.Parse(A[0, i +1]);
+            if (pos_x == -1f) continue;
+            if (i == 0)
+            {
+                GameObject Plant = Instantiate(TilePrefabs.PlantPrefab, new Vector3(pos_x, pos_y, transform.position.z), Quaternion.identity);
+                Map[(int)pos_x][(int)pos_y] = Plant;
+            }
+            else if(i == 1)
+            {
+                Bat = Instantiate(TilePrefabs.BatPrefab, new Vector3(pos_x, pos_y, transform.position.z), Quaternion.identity);
+                Map[(int)pos_x][(int)pos_y] = Bat;
+            }
+            else
+            {
+                GameObject Slime = Instantiate(TilePrefabs.SlimePrefab, new Vector3(pos_x, pos_y, transform.position.z), Quaternion.identity);
+                Map[(int)pos_x][(int)pos_y] = Slime;
+            }
+        }
     }
     private void GenerateMap()
     {
 
         Instantiate(TilePrefabs.FloorPrefab, new Vector3(-0.5f, -0.5f, 0), Quaternion.identity) ;
-
         string[,] A = ReadCSV.ReadCSVFile(csvFile.text);
 
         for (int i = 0; i < 32; i++)
