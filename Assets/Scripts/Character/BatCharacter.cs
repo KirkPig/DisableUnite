@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class BatCharacter : MonoBehaviour, ICharacter, Interactable
 {
+    public GameObject NoisePrefab; 
     //begin ICharacter 
     public Vector3 position;
     public GameController stage;
+    private void Awake() {
+        NoisePrefab = Resources.Load("Jade/Noise", typeof(GameObject)) as GameObject;
+    }
     public void move(Vector3 newPosition)
     {
         position = gameObject.transform.position;
@@ -38,9 +42,14 @@ public class BatCharacter : MonoBehaviour, ICharacter, Interactable
         }
         
     }
-    public void getVision()
+    public void getVision(List<Vector3> voices)
     {
-    
+        foreach (Vector3 voice in voices){
+            Vector3 dir = transform.position-voice;
+            float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.AngleAxis(angle,Vector3.forward);
+            object p = Instantiate(NoisePrefab,voice,rotation);
+        }
     }
     public void setPosition(int x, int y)
     {
