@@ -6,7 +6,6 @@ using TileMap;
 
 public class MapController : MonoBehaviour
 {
-    private const int V = 15;
     public List<int> key_recieve = new List<int>();
     public Tile [][] tilemap = new Tile[15][];
 
