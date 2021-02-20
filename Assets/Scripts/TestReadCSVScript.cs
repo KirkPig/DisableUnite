@@ -22,7 +22,7 @@ public class TestReadCSVScript : MonoBehaviour
         {
             for (int j = 0; j < 32; j++)
             {
-                int tile_i_j = int.Parse(Map[i,j]);
+                int tile_i_j = (int)Mathf.Floor(float.Parse(Map[i,j]));
                 switch(tile_i_j){
                     case 1:
                         GameObject newWater = Instantiate(TilePrefabs.WaterPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
