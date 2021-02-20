@@ -281,7 +281,9 @@ public class GameController : MonoBehaviour
         {
             currentRhytm = (currentRhytm + 1) % 6;
             drum = 0;
-            getNoise();
+            if(characterManager.selectedCharacter == Bat){
+                getNoise();
+            }
         }
         if (characterManager.selectedCharacter == Bat)
         {
@@ -300,12 +302,15 @@ public class GameController : MonoBehaviour
         {
             for (int j = 0;j< 32;j++)
             {
-                var alarm = Map[i][j].GetComponent<AlarmScript>();
-                if(alarm != null){
-                    bat_vision.Add(Map[i][j].transform.position);
+                if(Map[i][j]!=null){
+                    var alarm = Map[i][j].GetComponent<AlarmScript>();
+                    if(alarm != null)
+                    {
+                        bat_vision.Add(Map[i][j].transform.position);
+                    }
+                    //var clock = Map[i][j].GetComponent<ClockScript>();
+                    //var plant = Map[i][j].GetComponent<PlantCharacter>();
                 }
-                //var clock = Map[i][j].GetComponent<ClockScript>();
-                //var plant = Map[i][j].GetComponent<PlantCharacter>();
             }
         }
         Bat.GetComponent<BatCharacter>().getVision(bat_vision);
