@@ -7,7 +7,8 @@ public class SlimeCharacter : MonoBehaviour, ICharacter, Interactable
     public Vector3 position;
     public Vector3 targetPosition;
     public GameController stage;
-    
+    public float cooldown;
+    public float cooldownTime;
 
     public void move(Vector3 newPosition)
     {
@@ -30,14 +31,16 @@ public class SlimeCharacter : MonoBehaviour, ICharacter, Interactable
     // Start is called before the first frame update
     void Start()
     {
+        cooldown = 0;
         stage = GameObject.Find("GameController").GetComponent<GameController>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        cooldown = Mathf.Max(0, cooldown - Time.deltaTime);
         position = gameObject.transform.position;
-        if(!Vector3.Equals(targetPosition, position)) 
+        if(cooldown <= 0 && !Vector3.Equals(targetPosition, position)) 
         {
             Vector3 diff = targetPosition - position;
             if (diff.x != 0f && diff.y != 0f)
@@ -46,6 +49,7 @@ public class SlimeCharacter : MonoBehaviour, ICharacter, Interactable
             }
             else if (diff.x != 0) MoveTo(new Vector3(diff.x/ Mathf.Abs(diff.x), 0, diff.z));
             else MoveTo(new Vector3(0, diff.y / Mathf.Abs(diff.y), diff.z));
+            cooldown = cooldownTime;
         }
 
     }
