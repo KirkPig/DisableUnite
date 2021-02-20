@@ -2,35 +2,92 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BatCharacter : MonoBehaviour, ICharacter
+public class BatCharacter : MonoBehaviour, ICharacter, Interactable
 {
-    KeyValuePair<int, int> position;
-    public KeyValuePair<int, int> getPosition()
+    //begin ICharacter 
+    public Vector3 position;
+    public StageManager stage;
+    public void move(Vector3 newPosition)
+    {
+        position = gameObject.transform.position;
+        int x = (int) newPosition.x, y = (int) newPosition.y;
+        //Debug.Log(x.ToString() + " " + y.ToString());
+        GameObject inNewPosition = stage.GetMapGameObject(x, y);
+        if(inNewPosition == null)
+        {
+            gameObject.transform.position = newPosition;
+        }
+        else if(inNewPosition.GetComponent<Interactable>() != null) 
+        {
+            Interactable interaction = inNewPosition.GetComponent<Interactable>();
+            Debug.Log("current position:" + position.x.ToString() + " " + position.y.ToString());
+            int result = interaction.interact(true, newPosition - position);
+            if (result == 1)
+            {
+                gameObject.transform.position = newPosition;
+                stage.SetMapGameObject((int)position.x, (int)position.y, null);
+                stage.SetMapGameObject(x, y, gameObject);
+            }
+            else if (result == 3)
+            {
+                //restart
+            }
+         
+        }
+        
+    }
+    public void getVision()
+    {
+    
+    }
+    public void setPosition(int x, int y)
+    {
+        
+    }
+    public Vector3 getPosition()
     {
         return position;
     }
-    bool notInRange(int x, int y) { return false; }
-    public void move(KeyValuePair<int, int> direction)
+   public GameObject getGameObject()
     {
-       // GameObject goj;
-        //if(notInRange(position.Key + direction.Key, position.Value + direction.Value)) { return;  }
-        /*if(goj == null)
+        return gameObject;
+    }
+    //End ICharacter
+
+    //begin Interactable
+    public int interact(bool isFirstHand, Vector3 direction)
+    {
+        position = gameObject.transform.position;
+        if (!isFirstHand) return 2;
+        Vector3 newPosition = position + direction;
+        int x = (int)newPosition.x, y = (int)newPosition.y;
+        GameObject inNewPosition = stage.GetMapGameObject(x, y);
+        if (inNewPosition == null)
         {
-            setPosition(position.Key + direction.Key, position.Value + direction.Value);
-        }*/
-        // if(goj is ICharacter){ }
-        
+            stage.SetMapGameObject(x, y, gameObject);
+            stage.SetMapGameObject((int)position.x, (int)position.y, null);
+            gameObject.transform.position = newPosition;
+            return 1;
+        }
+        else if (inNewPosition.GetComponent<Interactable>() != null)
+        {
+            int result = inNewPosition.GetComponent<Interactable>().interact(false, direction);
+            if (result == 1)
+            {
+                stage.SetMapGameObject(x, y, gameObject);
+                stage.SetMapGameObject((int)position.x, (int)position.y, null);
+                gameObject.transform.position = newPosition;
+                return 1;
+            }
+            else if (result == 3)
+                return 3;
+        }
+        return 2;
     }
-
-    public void setPosition(int x, int y)
-    {
-
-    }
-
-    // Start is called before the first frame update
+    //end Interactable
     void Start()
     {
-        
+        position = transform.position;
     }
 
     // Update is called once per frame
@@ -38,4 +95,8 @@ public class BatCharacter : MonoBehaviour, ICharacter
     {
         
     }
+
+
+
+    
 }
