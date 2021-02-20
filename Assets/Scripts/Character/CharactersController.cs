@@ -14,7 +14,7 @@ public class CharactersController : MonoBehaviour
     void Start()
     {
         spawn();
-        characterManager =  mapManager.GetComponent<StageManager>().characterManager;
+        characterManager =  mapManager.GetComponent<GameController>().characterManager;
          
         walkCooldown = 0f;
     }
