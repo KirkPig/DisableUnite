@@ -5,6 +5,7 @@ using UnityEngine;
 namespace TileMap{
     public class Tile : MonoBehaviour
     {
+        public GameObject character;
         public Tile(){
             
         }
