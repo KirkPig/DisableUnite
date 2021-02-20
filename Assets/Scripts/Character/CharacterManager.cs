@@ -25,6 +25,7 @@ public class CharacterManager
         pointer ^= 1;
         selectedCharacter = characters[pointer];
     }
+
     public void alarm(Vector3 newPosition)
     {
         characters[2].GetComponent<ICharacter>().move(newPosition);

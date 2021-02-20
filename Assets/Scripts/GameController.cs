@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
     public GameObject BatVision;
     private GameObject[][] Map = new GameObject[32][];
     private GameObject Bat;
+    private List<Vector3> bat_vision;
     
 
     private void Awake()
@@ -40,8 +41,8 @@ public class GameController : MonoBehaviour
 
         GenerateMap();
 
-        Vector2 batStart = new Vector2(13, 14);
-        Vector2 plantStart = new Vector2(20, 14);
+        Vector2 batStart = new Vector2(9, 20);
+        Vector2 plantStart = new Vector2(9, 22);
 
         Bat = Instantiate(TilePrefabs.BatPrefab, new Vector3(batStart.x, batStart.y, transform.position.z), Quaternion.identity);
         GameObject Plant = Instantiate(TilePrefabs.PlantPrefab, new Vector3(plantStart.x, plantStart.y, transform.position.z), Quaternion.identity);
@@ -56,7 +57,6 @@ public class GameController : MonoBehaviour
 
 
     }
-
     private void GenerateMap()
     {
 
@@ -222,6 +222,9 @@ public class GameController : MonoBehaviour
         {
             currentRhytm = (currentRhytm + 1) % 6;
             drum = 0;
+            if(characterManager.selectedCharacter == Bat){
+                getNoise();
+            }
         }
         if (characterManager.selectedCharacter == Bat)
         {
@@ -232,5 +235,25 @@ public class GameController : MonoBehaviour
             BatVision.SetActive(false);
         }
 
+    }
+
+    void getNoise(){
+        bat_vision = new List<Vector3>();
+        for (int i = 0;i< 32;i++)
+        {
+            for (int j = 0;j< 32;j++)
+            {
+                if(Map[i][j]!=null){
+                    var alarm = Map[i][j].GetComponent<AlarmScript>();
+                    if(alarm != null)
+                    {
+                        bat_vision.Add(Map[i][j].transform.position);
+                    }
+                    //var clock = Map[i][j].GetComponent<ClockScript>();
+                    //var plant = Map[i][j].GetComponent<PlantCharacter>();
+                }
+            }
+        }
+        Bat.GetComponent<BatCharacter>().getVision(bat_vision);
     }
 }
