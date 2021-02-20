@@ -9,7 +9,7 @@ public class BatCharacter : MonoBehaviour, ICharacter, Interactable
     public Vector3 position;
     public GameController stage;
     private void Awake() {
-        NoisePrefab = Resources.Load("Jade/Noise", typeof(GameObject)) as GameObject;
+        NoisePrefab = Resources.Load("Prefabs/Noise", typeof(GameObject)) as GameObject;
     }
     public void move(Vector3 newPosition)
     {
@@ -47,8 +47,9 @@ public class BatCharacter : MonoBehaviour, ICharacter, Interactable
         foreach (Vector3 voice in voices){
             Vector3 dir = transform.position-voice;
             float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
-            Quaternion rotation = Quaternion.AngleAxis(angle,Vector3.forward);
-            object p = Instantiate(NoisePrefab,voice,rotation);
+            Quaternion rotation = Quaternion.AngleAxis(angle-90,Vector3.forward);
+            GameObject noise = Instantiate(NoisePrefab,voice,rotation);
+             Destroy (noise, 3.0f);
         }
     }
     public void setPosition(int x, int y)
