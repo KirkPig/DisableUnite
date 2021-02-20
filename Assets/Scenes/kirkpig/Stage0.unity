@@ -403,17 +403,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1374601754}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c0b45bdc272cf40a8fdd837a229695, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f65f60c643532e4eae596d67eef86cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FloorPrefab: {fileID: 2062506234918946792, guid: 48b93887d946be444a47f96c1e4bc946,
-    type: 3}
-  BatPrefab: {fileID: 6771728921928159169, guid: 3c0cfea227a058844a2554c513361ada,
-    type: 3}
-  SlimePrefab: {fileID: 8215854180471838915, guid: e191936911dfa0c488e5b8bf01f6a717,
-    type: 3}
-  PlantPrefab: {fileID: 6100624572521484921, guid: a6de824234ee12645be562133bcfaacf,
-    type: 3}
+  FloorPrefab: {fileID: 0}
+  BatPrefab: {fileID: 0}
+  SlimePrefab: {fileID: 0}
+  PlantPrefab: {fileID: 0}
   ButtonPrefab: {fileID: 0}
   MainCamera: {fileID: 135386645}
   gateStatus: 0
