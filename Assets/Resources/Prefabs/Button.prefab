@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2186536428101808353}
   - component: {fileID: 4888301459205634479}
   m_Layer: 0
-  m_Name: AlarmButton
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 390273bde42a4bc4c940dd84b1d08ff0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -95,5 +95,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: {x: 0, y: 0, z: 0}
-  destination: {x: 0, y: 0, z: 0}
+  alarmDestination: {x: 0, y: 0, z: 0}
+  isAlarm: 0
+  stepOn: 0
+  conveyer: []
+  cooldown: 0
+  cooldownTime: 0
   stage: {fileID: 0}

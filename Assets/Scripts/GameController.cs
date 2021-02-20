@@ -6,11 +6,8 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
 
-    public GameObject FloorPrefab;
-    public GameObject BatPrefab;
-    public GameObject SlimePrefab;
-    public GameObject PlantPrefab;
-    public GameObject ButtonPrefab;
+    public TextAsset csvFile;
+
     public GameObject MainCamera;
     public bool gateStatus;
     public int key;
@@ -26,11 +23,6 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-        FloorPrefab = TilePrefabs.FloorPrefab;
-        BatPrefab = TilePrefabs.BatPrefab;
-        SlimePrefab = TilePrefabs.SlimePrefab;
-        PlantPrefab = TilePrefabs.PlantPrefab;
-        ButtonPrefab = TilePrefabs.ButtonPrefab;
         for (int i = 0;i< 32;i++)
         {
             Map[i] = new GameObject[32];
@@ -46,19 +38,164 @@ public class GameController : MonoBehaviour
         /*
          * 
          */
-        Bat = Instantiate(BatPrefab, new Vector3(9, 21, transform.position.z), Quaternion.identity);
-        GameObject Plant = Instantiate(PlantPrefab, new Vector3(9, 17, transform.position.z), Quaternion.identity);
-        GameObject Slime = Instantiate(SlimePrefab, new Vector3(7, 15, transform.position.z), Quaternion.identity);
-        Slime.GetComponent<SlimeCharacter>().targetPosition = Slime.transform.position;
-        GameObject Button = Instantiate(ButtonPrefab, new Vector3(7, 21, transform.position.z), Quaternion.identity);
-        characterManager.setCharacter(Plant, Bat, Slime);
+
+        GenerateMap();
+
+        Vector2 batStart = new Vector2(13, 14);
+        Vector2 plantStart = new Vector2(20, 14);
+
+        Bat = Instantiate(TilePrefabs.BatPrefab, new Vector3(batStart.x, batStart.y, transform.position.z), Quaternion.identity);
+        GameObject Plant = Instantiate(TilePrefabs.PlantPrefab, new Vector3(plantStart.x, plantStart.y, transform.position.z), Quaternion.identity);
+        // GameObject Slime = Instantiate(TilePrefabs.SlimePrefab, new Vector3(7, 15, transform.position.z), Quaternion.identity);
+        // Slime.GetComponent<SlimeCharacter>().targetPosition = Slime.transform.position;
+        characterManager.setCharacter(Plant, Bat, null);
         drum = 0f;
-        Map[9][20] = Bat;
-        Map[9][22] = Plant;
-        Map[15][18] = Slime;
+        Map[(int)batStart.x][(int)batStart.y] = Bat;
+        Map[(int)plantStart.x][(int)plantStart.y] = Plant;
+        // Map[7][15] = Slime;
         key = 0;
 
 
+    }
+
+    private void GenerateMap()
+    {
+
+        Instantiate(TilePrefabs.FloorPrefab, new Vector3(-0.5f, -0.5f, 0), Quaternion.identity) ;
+
+        string[,] A = ReadCSV.ReadCSVFile(csvFile.text);
+
+        for (int i = 0; i < 32; i++)
+        {
+            for (int j = 0; j < 32; j++)
+            {
+                int tile_i_j = (int)Mathf.Floor(float.Parse(A[i, j]));
+                switch (tile_i_j)
+                {
+                    case 1:
+                        GameObject newWater = Instantiate(TilePrefabs.WaterPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                        newWater.name = "Water" + i.ToString() + "_" + j.ToString();
+                        Map[i][j] = newWater;
+                        break;
+                    case 2:
+                        GameObject newLava = Instantiate(TilePrefabs.LavaPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                        newLava.name = "Lava" + i.ToString() + "_" + j.ToString();
+                        Map[i][j] = newLava;
+                        break;
+                    case 3:
+                        GameObject newWall = Instantiate(TilePrefabs.WallPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                        newWall.name = "Wall" + i.ToString() + "_" + j.ToString();
+                        Map[i][j] = newWall;
+                        break;
+                    case 7:
+                        GameObject newKey = Instantiate(TilePrefabs.KeyPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                        newKey.name = "Key" + i.ToString() + "_" + j.ToString();
+                        Map[i][j] = newKey;
+                        break;
+                    case 8:
+                        if (A[i, j] == "8.1")
+                        {
+                            GameObject newDoor1 = Instantiate(TilePrefabs.Door1Prefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newDoor1.name = "newDoor1 " + i.ToString() + "_" + j.ToString();
+                            Map[i][j] = newDoor1;
+                            break;
+                        }
+                        if (A[i, j] == "8.2")
+                        {
+                            GameObject newDoor2 = Instantiate(TilePrefabs.Door2Prefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newDoor2.name = "newDoor1 " + i.ToString() + "_" + j.ToString();
+                            Map[i][j] = newDoor2;
+                            break;
+                        }
+                        if (A[i, j] == "8.3")
+                        {
+                            GameObject newDoor3 = Instantiate(TilePrefabs.Door3Prefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newDoor3.name = "newDoor1 " + i.ToString() + "_" + j.ToString();
+                            Map[i][j] = newDoor3;
+                            break;
+                        }
+                        if (A[i, j] == "8.4")
+                        {
+                            GameObject newDoor4 = Instantiate(TilePrefabs.Door4Prefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newDoor4.name = "newDoor1 " + i.ToString() + "_" + j.ToString();
+                            Map[i][j] = newDoor4;
+                            break;
+                        }
+                        if (A[i, j] == "8.5")
+                        {
+                            GameObject newDoor5 = Instantiate(TilePrefabs.Door5Prefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newDoor5.name = "newDoor1 " + i.ToString() + "_" + j.ToString();
+                            Map[i][j] = newDoor5;
+                            break;
+                        }
+                        break;
+                    case 12:
+                        GameObject newBlock = Instantiate(TilePrefabs.BlockPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                        newBlock.name = "Block" + i.ToString() + "_" + j.ToString();
+                        Map[i][j] = newBlock;
+                        break;
+                    case 13:
+                        GameObject newAlarm = Instantiate(TilePrefabs.AlarmPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                        newAlarm.name = "Alarm" + i.ToString() + "_" + j.ToString();
+                        Map[i][j] = newAlarm;
+                        break;
+                    case 14:
+                        GameObject newOpenGate = Instantiate(TilePrefabs.GatePrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                        newOpenGate.name = "Gate" + i.ToString() + "_" + j.ToString();
+                        newOpenGate.GetComponent<GateScript>().open = true;
+                        Map[i][j] = newOpenGate;
+                        break;
+                    case 15:
+                        GameObject newCloseGate = Instantiate(TilePrefabs.GatePrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                        newCloseGate.name = "Gate" + i.ToString() + "_" + j.ToString();
+                        newCloseGate.GetComponent<GateScript>().open = false;
+                        Map[i][j] = newCloseGate;
+                        break;
+                    case 16:
+                        if (A[i, j] == "16.2")
+                        {
+
+                            GameObject newClock = Instantiate(TilePrefabs.ClockPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newClock.name = "Clock" + i.ToString() + "_" + j.ToString();
+                            newClock.GetComponent<ClockScript>().maxTime = 2;
+                            Map[i][j] = newClock;
+
+                        }
+                        else if (A[i, j] == "16.3")
+                        {
+
+                            GameObject newClock = Instantiate(TilePrefabs.ClockPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newClock.name = "Clock" + i.ToString() + "_" + j.ToString();
+                            newClock.GetComponent<ClockScript>().maxTime = 3;
+                            Map[i][j] = newClock;
+
+                        }
+                        break;
+
+                    case 17:
+                        if (A[i, j] == "17.1")
+                        {
+                            GameObject newEndBat = Instantiate(TilePrefabs.EndBatPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newEndBat.name = "EndBat" + i.ToString() + "_" + j.ToString();
+                            // Map[i][j] = newEndBat;
+                        }
+                        else if (A[i, j] == "17.2")
+                        {
+                            GameObject newEndPlant = Instantiate(TilePrefabs.EndPlantPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newEndPlant.name = "EndPlant" + i.ToString() + "_" + j.ToString();
+                            // Map[i][j] = newEndPlant;
+                        }
+                        else if (A[i, j] == "17.3")
+                        {
+                            GameObject newEndSlime = Instantiate(TilePrefabs.EndSlimePrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newEndSlime.name = "EndSlime" + i.ToString() + "_" + j.ToString();
+                            // Map[i][j] = newEndSlime;
+                        }
+                        break;
+
+                }
+            }
+        }
     }
 
     public void InverseGate()
