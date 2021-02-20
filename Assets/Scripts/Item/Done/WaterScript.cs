@@ -15,7 +15,7 @@ public class WaterScript : MonoBehaviour, Interactable
     // Start is called before the first frame update
     void Start()
     {
-        stage = GameObject.Find("MapManager").GetComponent<GameController>();
+        stage = GameObject.Find("GameController").GetComponent<GameController>();
     }
 
     // Update is called once per frame

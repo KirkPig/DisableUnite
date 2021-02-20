@@ -14,7 +14,7 @@ public class CharactersController : MonoBehaviour
     {
         spawn();
         characterManager =  GameObject
-                            .Find("MapManager")
+                            .Find("GameController")
                             .GetComponent<GameController>()
                              .characterManager;
          

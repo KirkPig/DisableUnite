@@ -90,7 +90,7 @@ public class BatCharacter : MonoBehaviour, ICharacter, Interactable
     void Start()
     {
         position = transform.position;
-        stage = GameObject.Find("MapManager").GetComponent<GameController>();
+        stage = GameObject.Find("GameController").GetComponent<GameController>();
     }
 
     // Update is called once per frame
