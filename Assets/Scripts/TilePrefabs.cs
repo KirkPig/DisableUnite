@@ -22,5 +22,6 @@ public class TilePrefabs
     public static GameObject SlimePrefab = Resources.Load("Prefabs/Slime", typeof(GameObject)) as GameObject;
     public static GameObject FloorPrefab = Resources.Load("Prefabs/Floor", typeof(GameObject)) as GameObject;
     public static GameObject ButtonPrefab = Resources.Load("Prefabs/Button", typeof(GameObject)) as GameObject;
+    
 
 }

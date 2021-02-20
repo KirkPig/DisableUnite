@@ -231,7 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 576792beeae50e04b956d7d9cd82c659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  csvFile: {fileID: 4900000, guid: 2ddfaec33dfc78e4e89764d6abd4971c, type: 3}
+  csvFile: {fileID: 4900000, guid: 2474fd1d4df477e4f8a226fe631fb091, type: 3}
 --- !u!4 &1257310334
 Transform:
   m_ObjectHideFlags: 0
@@ -361,6 +361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   open: 0
+  state: 0
 --- !u!1 &2123650020
 GameObject:
   m_ObjectHideFlags: 0
