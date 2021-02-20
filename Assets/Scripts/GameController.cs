@@ -14,6 +14,9 @@ public class GameController : MonoBehaviour
     public GameObject MainCamera;
     public bool gateStatus;
     public int key;
+    public int currentRhytm;
+    public float drum;
+    public float drumTime;
     public CharacterManager characterManager;
     public GameObject BatVision;
     private GameObject[][] Map = new GameObject[32][];
@@ -48,7 +51,7 @@ public class GameController : MonoBehaviour
         Slime.GetComponent<SlimeCharacter>().targetPosition = Slime.transform.position;
         GameObject Button = Instantiate(ButtonPrefab, new Vector3(7, 21, transform.position.z), Quaternion.identity);
         characterManager.setCharacter(Plant, Bat, Slime);
-
+        drum = 0f;
         Map[9][21] = Bat;
         Map[9][17] = Plant;
         Map[7][15] = Slime;
@@ -77,7 +80,12 @@ public class GameController : MonoBehaviour
     {
         Transform t = characterManager.selectedCharacter.transform;
         MainCamera.transform.position = new Vector3(t.position.x, t.position.y, MainCamera.transform.position.z);
-
+        drum += Time.deltaTime;
+        if (drum > drumTime)
+        {
+            currentRhytm = (currentRhytm + 1) % 6;
+            drum = 0;
+        }
         if (characterManager.selectedCharacter == Bat)
         {
             BatVision.SetActive(true);
