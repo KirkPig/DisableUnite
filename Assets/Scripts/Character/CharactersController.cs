@@ -63,9 +63,6 @@ public class CharactersController : MonoBehaviour
     {
         // do something
     }
-    void alarm(Vector3 newPosition)
-    {
-        characterManager.characters[2].GetComponent<ICharacter>().move(newPosition);
-    }
+
 
 }

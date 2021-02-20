@@ -10,7 +10,8 @@ public class SlimeCharacter : MonoBehaviour, ICharacter, Interactable
 
     public void move(Vector3 newPosition)
     {
-        this.targetPosition = newPosition;
+        Debug.Log("Alarm Call:" + newPosition.ToString());
+        targetPosition = newPosition;
     }
 
     public void setPosition(int x, int y)
@@ -29,12 +30,13 @@ public class SlimeCharacter : MonoBehaviour, ICharacter, Interactable
     // Start is called before the first frame update
     void Start()
     {
-        
+        stage = GameObject.Find("MapManager").GetComponent<StageManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        position = gameObject.transform.position;
         if(!Vector3.Equals(targetPosition, position)) 
         {
             Vector3 diff = targetPosition - position;
@@ -58,6 +60,8 @@ public class SlimeCharacter : MonoBehaviour, ICharacter, Interactable
         if (inNewPosition == null)
         {
             gameObject.transform.position = newPosition;
+            stage.SetMapGameObject((int)position.x, (int)position.y, null);
+            stage.SetMapGameObject(x, y, gameObject);
         }
         else if (inNewPosition.GetComponent<Interactable>() != null)
         {

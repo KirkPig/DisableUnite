@@ -16,6 +16,8 @@ public class BatCharacter : MonoBehaviour, ICharacter, Interactable
         if(inNewPosition == null)
         {
             gameObject.transform.position = newPosition;
+            stage.SetMapGameObject((int)position.x, (int)position.y, null);
+            stage.SetMapGameObject(x, y, gameObject);
         }
         else if(inNewPosition.GetComponent<Interactable>() != null) 
         {
@@ -88,6 +90,7 @@ public class BatCharacter : MonoBehaviour, ICharacter, Interactable
     void Start()
     {
         position = transform.position;
+        stage = GameObject.Find("MapManager").GetComponent<StageManager>();
     }
 
     // Update is called once per frame

@@ -410,9 +410,11 @@ MonoBehaviour:
     type: 3}
   BatPrefab: {fileID: 6771728921928159169, guid: 3c0cfea227a058844a2554c513361ada,
     type: 3}
-  SimePrefab: {fileID: 8215854180471838915, guid: e191936911dfa0c488e5b8bf01f6a717,
+  SlimePrefab: {fileID: 8215854180471838915, guid: e191936911dfa0c488e5b8bf01f6a717,
     type: 3}
   PlantPrefab: {fileID: 6100624572521484921, guid: a6de824234ee12645be562133bcfaacf,
+    type: 3}
+  AlarmPrefab: {fileID: 4297623880013129407, guid: 8ef628b7bad22fe4a816f7b3d7b8eb9b,
     type: 3}
   MainCamera: {fileID: 135386645}
   BatVision: {fileID: 220772004}

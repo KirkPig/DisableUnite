@@ -64,7 +64,7 @@ public class PlantCharacter : MonoBehaviour, ICharacter, Interactable
     // Start is called before the first frame update
     void Start()
     {
-        
+        stage = GameObject.Find("MapManager").GetComponent<StageManager>();
     }
 
     // Update is called once per frame
