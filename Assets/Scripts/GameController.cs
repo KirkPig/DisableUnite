@@ -57,7 +57,6 @@ public class GameController : MonoBehaviour
 
 
     }
-
     private void GenerateMap()
     {
 
