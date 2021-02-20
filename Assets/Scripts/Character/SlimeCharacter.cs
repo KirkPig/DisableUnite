@@ -7,10 +7,10 @@ public class SlimeCharacter : MonoBehaviour, ICharacter, Interactable
     public Vector3 position;
     public Vector3 targetPosition;
     public GameController stage;
+    
 
     public void move(Vector3 newPosition)
     {
-        Debug.Log("Alarm Call:" + newPosition.ToString());
         targetPosition = newPosition;
     }
 
@@ -30,7 +30,7 @@ public class SlimeCharacter : MonoBehaviour, ICharacter, Interactable
     // Start is called before the first frame update
     void Start()
     {
-        stage = GameObject.Find("MapManager").GetComponent<GameController>();
+        stage = GameObject.Find("GameController").GetComponent<GameController>();
     }
 
     // Update is called once per frame

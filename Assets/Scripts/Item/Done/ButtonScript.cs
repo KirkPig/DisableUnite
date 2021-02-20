@@ -15,7 +15,7 @@ public class ButtonScript : MonoBehaviour
     public GameController stage;
     void Start()
     {
-        stage = GameObject.Find("MapManager").GetComponent<GameController>();
+        stage = GameObject.Find("GameController").GetComponent<GameController>();
     }
 
     // Update is called once per frame
