@@ -41,7 +41,44 @@ public class TestReadCSVScript : MonoBehaviour
                         newKey.name = "Key" + i.ToString() + "_" + j.ToString();
                         break;
                     case 8:
-                        //Door
+                        if(Map[i,j] == "8.1")
+                        {
+                            GameObject newDoor1 = Instantiate(TilePrefabs.Door1Prefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newDoor1.name = "newDoor1 " + i.ToString() + "_" + j.ToString();
+                            break;
+                        }
+                        if(Map[i,j] == "8.2")
+                        {
+                            GameObject newDoor2 = Instantiate(TilePrefabs.Door2Prefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newDoor2.name = "newDoor1 " + i.ToString() + "_" + j.ToString();
+                            break;
+                        }
+                        if(Map[i,j] == "8.3")
+                        {
+                            GameObject newDoor3 = Instantiate(TilePrefabs.Door3Prefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newDoor3.name = "newDoor1 " + i.ToString() + "_" + j.ToString();
+                            break;
+                        }
+                        if(Map[i,j] == "8.4")
+                        {
+                            GameObject newDoor4 = Instantiate(TilePrefabs.Door4Prefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newDoor4.name = "newDoor1 " + i.ToString() + "_" + j.ToString();
+                            break;
+                        }
+                        if(Map[i,j] == "8.5")
+                        {
+                            GameObject newDoor5 = Instantiate(TilePrefabs.Door5Prefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newDoor5.name = "newDoor1 " + i.ToString() + "_" + j.ToString();
+                            break;
+                        }
+                        break;
+                    case 12:
+                        GameObject newBlock= Instantiate(TilePrefabs.BlockPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                        newBlock.name = "Block" + i.ToString() + "_" + j.ToString();
+                        break;
+                    case 13:
+                        GameObject newAlarm= Instantiate(TilePrefabs.AlarmPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                        newAlarm.name = "Alarm" + i.ToString() + "_" + j.ToString();
                         break;
                     case 14:
                         GameObject newOpenGate = Instantiate(TilePrefabs.GatePrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
@@ -52,6 +89,42 @@ public class TestReadCSVScript : MonoBehaviour
                         GameObject newCloseGate = Instantiate(TilePrefabs.GatePrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
                         newCloseGate.name = "Gate" + i.ToString() + "_" + j.ToString();
                         newCloseGate.GetComponent<GateScript>().open = false;
+                        break;
+                    case 16:
+                        if (Map[i, j] == "16.2")
+                        {
+
+                            GameObject newClock = Instantiate(TilePrefabs.ClockPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newClock.name = "Clock" + i.ToString() + "_" + j.ToString();
+                            newClock.GetComponent<ClockScript>().maxTime = 2;
+
+                        }
+                        else if (Map[i, j] == "16.3")
+                        {
+
+                            GameObject newClock = Instantiate(TilePrefabs.ClockPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newClock.name = "Clock" + i.ToString() + "_" + j.ToString();
+                            newClock.GetComponent<ClockScript>().maxTime = 3;
+
+                        }
+                        break;
+
+                    case 17:
+                        if (Map[i, j] == "17.1")
+                        {
+                            GameObject newEndBat = Instantiate(TilePrefabs.EndBatPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newEndBat.name = "EndBat" + i.ToString() + "_" + j.ToString();
+                        }
+                        else if (Map[i, j] == "17.2")
+                        {
+                            GameObject newEndPlant = Instantiate(TilePrefabs.EndPlantPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newEndPlant.name = "EndPlant" + i.ToString() + "_" + j.ToString();
+                        }
+                        else if (Map[i, j] == "17.3")
+                        {
+                            GameObject newEndSlime = Instantiate(TilePrefabs.EndSlimePrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newEndSlime.name = "EndSlime" + i.ToString() + "_" + j.ToString();
+                        }
                         break;
 
                 }
