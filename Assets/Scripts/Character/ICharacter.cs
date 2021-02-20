@@ -6,7 +6,6 @@ public interface ICharacter
 {
     
     void move(Vector3 newPosition);
-    void getVision();
     void setPosition(int x, int y);
     Vector3 getPosition();
 
