@@ -9,8 +9,11 @@ public class StageManager : MonoBehaviour
     public GameObject BatPrefab;
     public GameObject SimePrefab;
     public GameObject PlantPrefab;
+    public GameObject MainCamera;
     public CharacterManager characterManager;
+    public GameObject BatVision;
     private GameObject[][] Map = new GameObject[32][];
+    private GameObject Bat;
     
 
     private void Awake()
@@ -30,9 +33,10 @@ public class StageManager : MonoBehaviour
         /*
          * 
          */
-        GameObject Bat = Instantiate(BatPrefab, new Vector3(9, 21, transform.position.z), Quaternion.identity);
+        Bat = Instantiate(BatPrefab, new Vector3(9, 21, transform.position.z), Quaternion.identity);
         Bat.GetComponent<BatCharacter>().stage = this;
         GameObject Plant = Instantiate(PlantPrefab, new Vector3(9, 17, transform.position.z), Quaternion.identity);
+        Plant.GetComponent<PlantCharacter>().stage = this;
         GameObject Slime = null;
         characterManager.setCharacter(Plant, Bat, Slime);
 
@@ -45,12 +49,28 @@ public class StageManager : MonoBehaviour
 
     public GameObject GetMapGameObject(int i, int j)
     {
+        Debug.Log("request" + i.ToString() + j.ToString());
         return Map[i][j];
+    }
+    public void SetMapGameObject(int i, int j, GameObject smth)
+    {
+        Map[i][j] = smth;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Transform t = characterManager.selectedCharacter.transform;
+        MainCamera.transform.position = new Vector3(t.position.x, t.position.y, MainCamera.transform.position.z);
+
+        if (characterManager.selectedCharacter == Bat)
+        {
+            BatVision.SetActive(true);
+        }
+        else
+        {
+            BatVision.SetActive(false);
+        }
+
     }
 }
