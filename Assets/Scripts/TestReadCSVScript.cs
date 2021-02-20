@@ -90,6 +90,42 @@ public class TestReadCSVScript : MonoBehaviour
                         newCloseGate.name = "Gate" + i.ToString() + "_" + j.ToString();
                         newCloseGate.GetComponent<GateScript>().open = false;
                         break;
+                    case 16:
+                        if (Map[i, j] == "16.2")
+                        {
+
+                            GameObject newClock = Instantiate(TilePrefabs.ClockPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newClock.name = "Clock" + i.ToString() + "_" + j.ToString();
+                            newClock.GetComponent<ClockScript>().maxTime = 2;
+
+                        }
+                        else if (Map[i, j] == "16.3")
+                        {
+
+                            GameObject newClock = Instantiate(TilePrefabs.ClockPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newClock.name = "Clock" + i.ToString() + "_" + j.ToString();
+                            newClock.GetComponent<ClockScript>().maxTime = 3;
+
+                        }
+                        break;
+
+                    case 17:
+                        if (Map[i, j] == "17.1")
+                        {
+                            GameObject newEndBat = Instantiate(TilePrefabs.EndBatPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newEndBat.name = "EndBat" + i.ToString() + "_" + j.ToString();
+                        }
+                        else if (Map[i, j] == "17.2")
+                        {
+                            GameObject newEndPlant = Instantiate(TilePrefabs.EndPlantPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newEndPlant.name = "EndPlant" + i.ToString() + "_" + j.ToString();
+                        }
+                        else if (Map[i, j] == "17.3")
+                        {
+                            GameObject newEndSlime = Instantiate(TilePrefabs.EndSlimePrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                            newEndSlime.name = "EndSlime" + i.ToString() + "_" + j.ToString();
+                        }
+                        break;
 
                 }
             }
