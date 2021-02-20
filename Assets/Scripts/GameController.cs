@@ -41,8 +41,8 @@ public class GameController : MonoBehaviour
 
         GenerateMap();
 
-        Vector2 batStart = new Vector2(13, 14);
-        Vector2 plantStart = new Vector2(20, 14);
+        Vector2 batStart = new Vector2(9, 20);
+        Vector2 plantStart = new Vector2(9, 22);
 
         Bat = Instantiate(TilePrefabs.BatPrefab, new Vector3(batStart.x, batStart.y, transform.position.z), Quaternion.identity);
         GameObject Plant = Instantiate(TilePrefabs.PlantPrefab, new Vector3(plantStart.x, plantStart.y, transform.position.z), Quaternion.identity);
@@ -222,7 +222,9 @@ public class GameController : MonoBehaviour
         {
             currentRhytm = (currentRhytm + 1) % 6;
             drum = 0;
-            getNoise();
+            if(characterManager.selectedCharacter == Bat){
+                getNoise();
+            }
         }
         if (characterManager.selectedCharacter == Bat)
         {
@@ -241,12 +243,15 @@ public class GameController : MonoBehaviour
         {
             for (int j = 0;j< 32;j++)
             {
-                var alarm = Map[i][j].GetComponent<AlarmScript>();
-                if(alarm != null){
-                    bat_vision.Add(Map[i][j].transform.position);
+                if(Map[i][j]!=null){
+                    var alarm = Map[i][j].GetComponent<AlarmScript>();
+                    if(alarm != null)
+                    {
+                        bat_vision.Add(Map[i][j].transform.position);
+                    }
+                    //var clock = Map[i][j].GetComponent<ClockScript>();
+                    //var plant = Map[i][j].GetComponent<PlantCharacter>();
                 }
-                //var clock = Map[i][j].GetComponent<ClockScript>();
-                //var plant = Map[i][j].GetComponent<PlantCharacter>();
             }
         }
         Bat.GetComponent<BatCharacter>().getVision(bat_vision);
