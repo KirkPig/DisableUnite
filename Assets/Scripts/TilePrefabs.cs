@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TilePrefabs
 {
+
+
     public static GameObject WaterPrefab = Resources.Load("Prefabs/Water", typeof(GameObject)) as GameObject;
     public static GameObject LavaPrefab = Resources.Load("Prefabs/Lava", typeof(GameObject)) as GameObject;
     public static GameObject WallPrefab = Resources.Load("Prefabs/Wall", typeof(GameObject)) as GameObject;
@@ -22,5 +24,10 @@ public class TilePrefabs
     public static GameObject SlimePrefab = Resources.Load("Prefabs/Slime", typeof(GameObject)) as GameObject;
     public static GameObject FloorPrefab = Resources.Load("Prefabs/Floor", typeof(GameObject)) as GameObject;
     public static GameObject ButtonPrefab = Resources.Load("Prefabs/Button", typeof(GameObject)) as GameObject;
+    public static GameObject ClockPrefab = Resources.Load("Prefabs/Clock", typeof(GameObject)) as GameObject;
+
+    public static GameObject EndBatPrefab = Resources.Load("Prefabs/EndBat", typeof(GameObject)) as GameObject;
+    public static GameObject EndPlantPrefab = Resources.Load("Prefabs/EndPlant", typeof(GameObject)) as GameObject;
+    public static GameObject EndSlimePrefab = Resources.Load("Prefabs/EndSlime", typeof(GameObject)) as GameObject;
 
 }
