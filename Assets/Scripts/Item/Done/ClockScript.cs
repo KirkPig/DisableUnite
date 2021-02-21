@@ -19,7 +19,7 @@ public class ClockScript : MonoBehaviour
     {
 
         GetComponent<Animator>().SetInteger("Time", time);
-
+        time = (GameObject.Find("GameController").GetComponent<GameController>().currentRhytm % maxTime) + 1;
     }
 
     public void TimeUp()
