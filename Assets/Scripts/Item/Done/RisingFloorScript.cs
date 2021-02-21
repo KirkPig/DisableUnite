@@ -32,16 +32,11 @@ public class RisingFloorScript : MonoBehaviour
             }
             else
             {
-<<<<<<< HEAD
-                stage.RestartStage();
 
-||||||| c8f5e7a
                 //restart 
-
-=======
                    stage.RestartStage();
                 
->>>>>>> 06114a68e0c76f6f82887b01a1281ce6c6d027f7
+
             }
         }
 

@@ -757,21 +757,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f65f60c643532e4eae596d67eef86cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelComplete: {fileID: 1308117351}
-  stageName: 
-  csvFile: {fileID: 0}
-  spawnFile: {fileID: 0}
-  buttonFile: {fileID: 0}
-  endBat: {fileID: 0}
-  endPlant: {fileID: 0}
-  endSlime: {fileID: 0}
-  MainCamera: {fileID: 135386645}
-  gateStatus: 0
-  key: 0
-  currentRhytm: 0
-  drum: 0
-  BatVision: {fileID: 60407560}
-  isEnd: 0
 --- !u!1 &1397916399
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,7 +927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkCooldown: 0
-  walkCooldownTime: 0.5
+  walkCooldownTime: 0.3
   switchCooldown: 0
   switchCooldownTime: 0.5
 --- !u!4 &1969951402
