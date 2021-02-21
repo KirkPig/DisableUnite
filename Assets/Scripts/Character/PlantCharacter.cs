@@ -6,6 +6,8 @@ public class PlantCharacter : MonoBehaviour, ICharacter, Interactable
 {
     Vector3 position;
     public GameController stage;
+    public float cooldown;
+    public const float cooldownTime = 0.25f;
     //Begin Icharacter
     public Vector3 getPosition()
     {
@@ -70,6 +72,12 @@ public class PlantCharacter : MonoBehaviour, ICharacter, Interactable
     // Update is called once per frame
     void Update()
     {
-         
+        cooldown = Mathf.Max(0f, cooldown - Time.deltaTime);
+
+        if(Input.GetKeyDown(KeyCode.Q) && cooldown <= 0f)
+        {
+            stage.characterManager.alarm(transform.position);
+            cooldown = cooldownTime;
+        }
     }
 }
