@@ -32,6 +32,14 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void RestartGame(string stage)
+    {
+        LoadingOps.Add(SceneManager.UnloadSceneAsync("Stage0"));
+        LoadingOps.Add(SceneManager.LoadSceneAsync("Stage0", LoadSceneMode.Additive));
+
+        StartCoroutine(LoadingCheck(stage).GetEnumerator());
+    }
+
     public void StartGame(string stage)
     {
         LoadingOps.Add(SceneManager.UnloadSceneAsync("MainMenuScene"));
@@ -106,6 +114,7 @@ public class GameManager : MonoBehaviour
         GameObject.Find("GameController").GetComponent<GameController>().csvFile = Resources.Load("MapCSV/" + stage, typeof(TextAsset)) as TextAsset;
         GameObject.Find("GameController").GetComponent<GameController>().buttonFile = Resources.Load("ButtonPointCSV/button" + stage, typeof(TextAsset)) as TextAsset;
         GameObject.Find("GameController").GetComponent<GameController>().spawnFile = Resources.Load("SpawnPointCSV/spawn" + stage, typeof(TextAsset)) as TextAsset;
+        GameObject.Find("GameController").GetComponent<GameController>().stageName = stage;
         GameObject.Find("GameController").GetComponent<GameController>().LoadGame();
         GameObject.Find("GameManagerCam").GetComponent<Camera>().enabled = false;
         GameObject.Find("StageCam").GetComponent<Camera>().enabled = true;
