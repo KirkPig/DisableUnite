@@ -376,11 +376,15 @@ public class GameController : MonoBehaviour
             {
                 if(Map[i][j]!=null){
                     var alarm = Map[i][j].GetComponent<AlarmScript>();
-                    if(alarm != null)
+                    if(alarm != null && alarm.pressed)
                     {
                         bat_vision.Add(Map[i][j].transform.position);
                     }
-                    //var clock = Map[i][j].GetComponent<ClockScript>();
+                    var clock = Map[i][j].GetComponent<ClockScript>();
+                    if(clock != null && clock.time == 1)
+                    {
+                        bat_vision.Add(Map[i][j].transform.position);
+                    }
                     //var plant = Map[i][j].GetComponent<PlantCharacter>();
                 }
             }
