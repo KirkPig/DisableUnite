@@ -4,11 +4,27 @@ using UnityEngine;
 
 public class BatCharacter : MonoBehaviour, ICharacter, Interactable
 {
+    public GameObject NoisePrefab;
+    private List<GameObject> NoiseList = new List<GameObject>();
     //begin ICharacter 
     public Vector3 position;
     public GameController stage;
+    private void Awake() {
+        NoisePrefab = Resources.Load("Prefabs/Noise", typeof(GameObject)) as GameObject;
+    }
     public void move(Vector3 newPosition)
     {
+
+        for (int i = 0;i < NoiseList.Count;i++)
+        {
+            if (NoiseList[i])
+            {
+                Destroy(NoiseList[i]);
+            }
+            
+        }
+        NoiseList.Clear();
+
         position = gameObject.transform.position;
         int x = (int) newPosition.x, y = (int) newPosition.y;
         //Debug.Log(x.ToString() + " " + y.ToString());
@@ -38,9 +54,16 @@ public class BatCharacter : MonoBehaviour, ICharacter, Interactable
         }
         
     }
-    public void getVision()
+    public void getVision(List<Vector3> voices)
     {
-    
+        foreach (Vector3 voice in voices){
+            Vector3 dir = transform.position-voice;
+            float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.AngleAxis(angle-90,Vector3.forward);
+            GameObject noise = Instantiate(NoisePrefab,voice,rotation);
+            NoiseList.Add(noise);
+            Destroy(noise, 1.0f);
+        }
     }
     public void setPosition(int x, int y)
     {
@@ -96,7 +119,19 @@ public class BatCharacter : MonoBehaviour, ICharacter, Interactable
     // Update is called once per frame
     void Update()
     {
-        
+
+        if (stage.characterManager.pointer != 1) {
+            for (int i = 0; i < NoiseList.Count; i++)
+            {
+                if (NoiseList[i])
+                {
+                    Destroy(NoiseList[i]);
+                }
+
+            }
+            NoiseList.Clear();
+        }
+
     }
 
 

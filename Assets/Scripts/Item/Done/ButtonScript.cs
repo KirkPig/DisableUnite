@@ -51,9 +51,12 @@ public class ButtonScript : MonoBehaviour
         }
         if (conveyer.Count != 0)
         {
+            Debug.Log("Doing Conveyer");
             for (int i = 0; i < conveyer.Count; i += 2)
             {
                 Vector2Int direction = conveyer[i + 1] - conveyer[i];
+                if (direction.x != 0) direction.x /= Mathf.Abs(direction.x);
+                if (direction.y != 0) direction.y /= Mathf.Abs(direction.y);
                 for (Vector2Int j = new Vector2Int(conveyer[i + 1].x, conveyer[i + 1].y); j != conveyer[i] - direction; j -= direction)
                 {
                     GameObject onConveyer = stage.GetMapGameObject(j.x, j.y);
@@ -64,9 +67,11 @@ public class ButtonScript : MonoBehaviour
                         {
                             stage.SetMapGameObject(j.x + direction.x, j.y + direction.y, onConveyer);
                             stage.SetMapGameObject(j.x, j.y, null);
+                            onConveyer.transform.position = new Vector3((float)j.x + direction.x, (float)j.y + direction.y, onConveyer.transform.position.z);
                         }
                         else
                         {
+                            Debug.Log("Next Block Found:" + onNextBlock.name);
                             Interactable interaction = onNextBlock.GetComponent<Interactable>();
                             if (interaction != null)
                             {
@@ -75,6 +80,7 @@ public class ButtonScript : MonoBehaviour
                                 {
                                     stage.SetMapGameObject(j.x + direction.x, j.y + direction.y, onConveyer);
                                     stage.SetMapGameObject(j.x, j.y, null);
+                                    onConveyer.transform.position = new Vector3((float)j.x + direction.x, (float)j.y + direction.y, onConveyer.transform.position.z);
                                 }
                                 else if (response == 3)
                                 {

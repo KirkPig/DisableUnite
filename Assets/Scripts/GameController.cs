@@ -6,8 +6,13 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
 
+    public string stageName;
     public TextAsset csvFile;
-
+    public TextAsset spawnFile;
+    public TextAsset buttonFile;
+    public EndBatScript endBat;
+    public EndPlantScript endPlant;
+    public EndSlimeScript endSlime;
     public GameObject MainCamera;
     public bool gateStatus;
     public int key;
@@ -18,7 +23,8 @@ public class GameController : MonoBehaviour
     public GameObject BatVision;
     private GameObject[][] Map = new GameObject[32][];
     private GameObject Bat;
-    
+    private List<Vector3> bat_vision;
+    public bool isEnd;
 
     private void Awake()
     {
@@ -38,30 +44,113 @@ public class GameController : MonoBehaviour
          * 
          */
 
-        GenerateMap();
-
-        Vector2 batStart = new Vector2(13, 14);
-        Vector2 plantStart = new Vector2(20, 14);
-
-        Bat = Instantiate(TilePrefabs.BatPrefab, new Vector3(batStart.x, batStart.y, transform.position.z), Quaternion.identity);
-        GameObject Plant = Instantiate(TilePrefabs.PlantPrefab, new Vector3(plantStart.x, plantStart.y, transform.position.z), Quaternion.identity);
-        // GameObject Slime = Instantiate(TilePrefabs.SlimePrefab, new Vector3(7, 15, transform.position.z), Quaternion.identity);
-        // Slime.GetComponent<SlimeCharacter>().targetPosition = Slime.transform.position;
-        characterManager.setCharacter(Plant, Bat, null);
-        drum = 0f;
-        Map[(int)batStart.x][(int)batStart.y] = Bat;
-        Map[(int)plantStart.x][(int)plantStart.y] = Plant;
-        // Map[7][15] = Slime;
-        key = 0;
+        
 
 
     }
 
+    public void RestartStage()
+    {
+        GameManager.instance.RestartGame(stageName);
+    }
+
+    public void LoadGame()
+    {
+        GenerateMap();
+        Spawn();
+        GenerateButton();
+
+
+        drum = 0f;
+        key = 0;
+    }
+
+    private void GenerateButton()
+    {
+        string[,] A = ReadCSV.ReadCSVFileNoReverse(buttonFile.text);
+        int n = (int) float.Parse(A[0, 0]), it = 1;
+        for(int i = 0; i < n; i++)
+        {
+            Debug.Log("i=" + i.ToString());
+            int x = int.Parse(A[it, 0]), y = int.Parse(A[it, 1]);
+            GameObject button = Instantiate(TilePrefabs.ButtonPrefab, new Vector3((float)x, (float)y, transform.position.z), Quaternion.identity);
+            button.name = "Button" + x.ToString() + "_" + y.ToString();
+            it++;
+            Debug.Log(button.name);
+            //get isAlarm
+            int isAlarm = int.Parse( A[it, 0] );
+            ButtonScript buttonScript = button.GetComponent<ButtonScript>();
+            if(isAlarm == 1)
+            {
+                buttonScript.isAlarm = true;
+                it++;
+                buttonScript.alarmDestination = new Vector3(float.Parse(A[it, 0]), float.Parse(A[it, 1]));
+            }
+            it++;
+            buttonScript.conveyer = new List<Vector2Int>();
+            int conveyerLength = int.Parse(A[it, 0]);
+            Debug.Log("conveyer length:" + conveyerLength.ToString());
+            it++;
+            for(int j = 0; j < conveyerLength; j ++, it ++)
+            {
+                int begx = int.Parse(A[it, 0]), begy = int.Parse(A[it, 1]);
+                Debug.Log("BegX:" + begx.ToString() + "BegY:" + begy.ToString());
+                buttonScript.conveyer.Add(new Vector2Int(begx, begy));
+                int endx = int.Parse(A[it, 2]), endy = int.Parse(A[it, 3]);
+                Debug.Log("endX:" + endx.ToString() + "endY:" + endy.ToString());
+                buttonScript.conveyer.Add(new Vector2Int(endx, endy));
+                int dx = (endx - begx) == 0 ? 0 : (endx - begx < 0 ? -1 : 1);
+                int dy = (endy - begy) == 0 ? 0 : (endy - begy < 0 ? -1 : 1);
+                Debug.Log("dx:" + dx.ToString() + "dy:" + dy.ToString());
+                GameObject conveyerPrefab;
+                if (dx == 1) conveyerPrefab = TilePrefabs.ConveyerRight;
+                else if (dx == -1) conveyerPrefab = TilePrefabs.ConveyerLeft;
+                else if (dy == 1) conveyerPrefab = TilePrefabs.ConveyerUp;
+                else conveyerPrefab = TilePrefabs.ConveyerDown;
+                for (;begx != endx + dx|| begy != endy + dy; begx += dx, begy += dy)
+                {
+                   Instantiate(conveyerPrefab, new Vector3((float) begx, (float) begy, transform.position.z), Quaternion.identity);
+                }
+            }
+            buttonScript.cooldownTime = float.Parse(A[it, 0]);
+            it++;
+        }
+    }
+    private void Spawn()
+    {
+        string[,] A = ReadCSV.ReadCSVFileNoReverse(spawnFile.text);
+
+        // Debug.Log(A[0, 0]);
+
+
+        for(int i = 0; i < 6; i += 2)
+        {
+            float pos_x =  float.Parse(A[0, i]), pos_y = float.Parse(A[0, i +1]);
+            if (pos_x == -1f) continue;
+            if (i == 0)
+            {
+                GameObject Plant = Instantiate(TilePrefabs.PlantPrefab, new Vector3(pos_x, pos_y, transform.position.z), Quaternion.identity);
+                Map[(int)pos_x][(int)pos_y] = Plant;
+                characterManager.setCharacterPlant(Plant);
+            }
+            else if(i == 2)
+            {
+                Bat = Instantiate(TilePrefabs.BatPrefab, new Vector3(pos_x, pos_y, transform.position.z), Quaternion.identity);
+                Map[(int)pos_x][(int)pos_y] = Bat;
+                characterManager.setCharacterBat(Bat);
+            }
+            else
+            {
+                GameObject Slime = Instantiate(TilePrefabs.SlimePrefab, new Vector3(pos_x, pos_y, transform.position.z), Quaternion.identity);
+                Map[(int)pos_x][(int)pos_y] = Slime;
+                characterManager.setCharacterSlime(Slime);
+            }
+        }
+    }
     private void GenerateMap()
     {
 
         Instantiate(TilePrefabs.FloorPrefab, new Vector3(-0.5f, -0.5f, 0), Quaternion.identity) ;
-
         string[,] A = ReadCSV.ReadCSVFile(csvFile.text);
 
         for (int i = 0; i < 32; i++)
@@ -176,18 +265,21 @@ public class GameController : MonoBehaviour
                         {
                             GameObject newEndBat = Instantiate(TilePrefabs.EndBatPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
                             newEndBat.name = "EndBat" + i.ToString() + "_" + j.ToString();
+                            endBat = newEndBat.GetComponent<EndBatScript>();
                             // Map[i][j] = newEndBat;
                         }
                         else if (A[i, j] == "17.2")
                         {
                             GameObject newEndPlant = Instantiate(TilePrefabs.EndPlantPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
                             newEndPlant.name = "EndPlant" + i.ToString() + "_" + j.ToString();
+                            endPlant = newEndPlant.GetComponent<EndPlantScript>();
                             // Map[i][j] = newEndPlant;
                         }
                         else if (A[i, j] == "17.3")
                         {
                             GameObject newEndSlime = Instantiate(TilePrefabs.EndSlimePrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
                             newEndSlime.name = "EndSlime" + i.ToString() + "_" + j.ToString();
+                            endSlime = newEndSlime.GetComponent<EndSlimeScript>();
                             // Map[i][j] = newEndSlime;
                         }
                         break;
@@ -222,6 +314,9 @@ public class GameController : MonoBehaviour
         {
             currentRhytm = (currentRhytm + 1) % 6;
             drum = 0;
+            if(characterManager.selectedCharacter == Bat){
+                getNoise();
+            }
         }
         if (characterManager.selectedCharacter == Bat)
         {
@@ -231,6 +326,30 @@ public class GameController : MonoBehaviour
         {
             BatVision.SetActive(false);
         }
+        isEnd = ((endBat == null || endBat.isEndBat) && (endPlant == null || endPlant.isEndPlant) && (endSlime == null || endSlime.isEndSlime));
 
+        GameObject.Find("LevelComplete").SetActive(isEnd);
+
+
+    }
+
+    void getNoise(){
+        bat_vision = new List<Vector3>();
+        for (int i = 0;i< 32;i++)
+        {
+            for (int j = 0;j< 32;j++)
+            {
+                if(Map[i][j]!=null){
+                    var alarm = Map[i][j].GetComponent<AlarmScript>();
+                    if(alarm != null)
+                    {
+                        bat_vision.Add(Map[i][j].transform.position);
+                    }
+                    //var clock = Map[i][j].GetComponent<ClockScript>();
+                    //var plant = Map[i][j].GetComponent<PlantCharacter>();
+                }
+            }
+        }
+        Bat.GetComponent<BatCharacter>().getVision(bat_vision);
     }
 }
