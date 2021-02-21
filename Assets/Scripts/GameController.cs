@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
 
+    public string stageName;
     public TextAsset csvFile;
     public TextAsset spawnFile;
     public TextAsset buttonFile;
@@ -46,6 +47,11 @@ public class GameController : MonoBehaviour
         
 
 
+    }
+
+    public void RestartStage()
+    {
+        GameManager.instance.RestartGame(stageName);
     }
 
     public void LoadGame()
@@ -321,6 +327,10 @@ public class GameController : MonoBehaviour
             BatVision.SetActive(false);
         }
         isEnd = ((endBat == null || endBat.isEndBat) && (endPlant == null || endPlant.isEndPlant) && (endSlime == null || endSlime.isEndSlime));
+
+        GameObject.Find("LevelComplete").SetActive(isEnd);
+
+
     }
 
     void getNoise(){
