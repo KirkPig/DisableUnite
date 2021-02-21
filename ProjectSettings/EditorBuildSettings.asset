@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/kirkpig/MainMenuScene.unity
     guid: 8c238b8633f7e7846abc7308af4cb660
+  - enabled: 1
+    path: Assets/Scenes/kirkpig/Stage0.unity
+    guid: dc774be434117ed4f9869bfc1c55fa44
   m_configObjects: {}

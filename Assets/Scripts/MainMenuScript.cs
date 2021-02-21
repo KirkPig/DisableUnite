@@ -33,6 +33,16 @@ public class MainMenuScript : MonoBehaviour
         Application.Quit();
     }
 
+    public void StageButtonClicked(string stage)
+    {
+
+        GameManager.instance.StartGame(stage);
+
+    }
+
+
+
+
     // Update is called once per frame
     void Update()
     {
