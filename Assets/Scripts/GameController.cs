@@ -40,15 +40,22 @@ public class GameController : MonoBehaviour
          * 
          */
 
-        GenerateMap();
-        GenerateButton();
-        Spawn();
-
-        drum = 0f;
-        key = 0;
+        
 
 
     }
+
+    public void LoadGame()
+    {
+        GenerateMap();
+        Spawn();
+        GenerateButton();
+
+
+        drum = 0f;
+        key = 0;
+    }
+
     private void GenerateButton()
     {
         string[,] A = ReadCSV.ReadCSVFileNoReverse(buttonFile.text);
@@ -84,8 +91,10 @@ public class GameController : MonoBehaviour
                     GameObject convayerPrefab;
                     //set convayerPrefab  4 cases for sprite
                     
+
+                    
                     //end set 
-                    Instantiate(convayerPrefab, new Vector3((float) begx, (float) begy, transform.position.z), Quaternion.identity);
+                   //  Instantiate(convayerPrefab, new Vector3((float) begx, (float) begy, transform.position.z), Quaternion.identity);
 
                 }
             }
@@ -96,6 +105,10 @@ public class GameController : MonoBehaviour
     private void Spawn()
     {
         string[,] A = ReadCSV.ReadCSVFileNoReverse(spawnFile.text);
+
+        // Debug.Log(A[0, 0]);
+
+
         for(int i = 0; i < 6; i += 2)
         {
             float pos_x =  float.Parse(A[0, i]), pos_y = float.Parse(A[0, i +1]);
@@ -104,16 +117,19 @@ public class GameController : MonoBehaviour
             {
                 GameObject Plant = Instantiate(TilePrefabs.PlantPrefab, new Vector3(pos_x, pos_y, transform.position.z), Quaternion.identity);
                 Map[(int)pos_x][(int)pos_y] = Plant;
+                characterManager.setCharacterPlant(Plant);
             }
-            else if(i == 1)
+            else if(i == 2)
             {
                 Bat = Instantiate(TilePrefabs.BatPrefab, new Vector3(pos_x, pos_y, transform.position.z), Quaternion.identity);
                 Map[(int)pos_x][(int)pos_y] = Bat;
+                characterManager.setCharacterBat(Bat);
             }
             else
             {
                 GameObject Slime = Instantiate(TilePrefabs.SlimePrefab, new Vector3(pos_x, pos_y, transform.position.z), Quaternion.identity);
                 Map[(int)pos_x][(int)pos_y] = Slime;
+                characterManager.setCharacterSlime(Slime);
             }
         }
     }

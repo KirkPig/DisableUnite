@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 4186908}
+  stageSelected: Stage0
 --- !u!4 &263320995
 Transform:
   m_ObjectHideFlags: 0
@@ -286,7 +287,7 @@ GameObject:
   - component: {fileID: 981621231}
   - component: {fileID: 981621230}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: GameManagerCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

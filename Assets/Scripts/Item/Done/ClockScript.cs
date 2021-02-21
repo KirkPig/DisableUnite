@@ -22,7 +22,7 @@ public class ClockScript : MonoBehaviour
 
     }
 
-    void TimeUp()
+    public void TimeUp()
     {
         if (time >= maxTime)
         {
