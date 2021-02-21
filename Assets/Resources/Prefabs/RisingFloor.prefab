@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3608019539866760180}
   - component: {fileID: 105905120649842576}
   - component: {fileID: 5196590242262325038}
+  - component: {fileID: 1220733992376904350}
   m_Layer: 0
   m_Name: RisingFloor
   m_TagString: Untagged
@@ -95,4 +96,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeRange: {x: 0, y: 0}
+  mod: 0
   isActive: 0
+--- !u!95 &1220733992376904350
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327267672706778350}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 40916129643ef814fa1f3a315e2524b2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
