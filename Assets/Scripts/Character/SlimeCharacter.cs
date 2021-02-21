@@ -8,7 +8,7 @@ public class SlimeCharacter : MonoBehaviour, ICharacter, Interactable
     public Vector3 targetPosition;
     public GameController stage;
     public float cooldown;
-    public const float cooldownTime = 0.5f;
+    public const float cooldownTime = 1f;
 
     public void move(Vector3 newPosition)
     {
