@@ -222,7 +222,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &220772005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,6 +407,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   csvFile: {fileID: 4900000, guid: 2474fd1d4df477e4f8a226fe631fb091, type: 3}
+  spawnFile: {fileID: 4900000, guid: 10102d872e28daa46b4993d8f60eb25b, type: 3}
+  buttonFile: {fileID: 4900000, guid: a225a321dce892249a4e2725301701eb, type: 3}
   MainCamera: {fileID: 135386645}
   gateStatus: 0
   key: 0
