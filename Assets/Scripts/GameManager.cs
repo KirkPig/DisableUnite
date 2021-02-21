@@ -32,6 +32,14 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void BackMainMenu()
+    {
+        LoadingOps.Add(SceneManager.UnloadSceneAsync("Stage0"));
+        LoadingOps.Add(SceneManager.LoadSceneAsync("MainMenuScene", LoadSceneMode.Additive));
+
+        StartCoroutine(LoadingCheck().GetEnumerator());
+    }
+
     public void RestartGame(string stage)
     {
         LoadingOps.Add(SceneManager.UnloadSceneAsync("Stage0"));
