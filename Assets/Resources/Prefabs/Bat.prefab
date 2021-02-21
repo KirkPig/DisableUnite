@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1033166728287081938}
   - component: {fileID: 6063714214457132273}
   - component: {fileID: 8686341505719535269}
+  - component: {fileID: 6809576120901535959}
   m_Layer: 0
   m_Name: Bat
   m_TagString: Untagged
@@ -71,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 9d07028b4e9f21d418aeea2d2e15e3cc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5acd8255f26e1ca48828e79bedc9d385, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -94,5 +95,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721e2bdd551b52b4dafbbea7fc3d5785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NoisePrefab: {fileID: 0}
   position: {x: 0, y: 0, z: 0}
   stage: {fileID: 0}
+--- !u!95 &6809576120901535959
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6771728921928159169}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2658ec1fb17d7a04f833f04a85044e6c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
