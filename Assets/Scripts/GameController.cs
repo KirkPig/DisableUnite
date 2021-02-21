@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour
     public EndPlantScript endPlant;
     public EndSlimeScript endSlime;
     public GameObject MainCamera;
-    public bool gateStatus;
+    public int gateStatus;
     public int key;
     public int currentRhytm;
     public float drum;
@@ -28,6 +28,7 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
+        gateStatus = 0;
         for (int i = 0;i< 32;i++)
         {
             Map[i] = new GameObject[32];
@@ -217,6 +218,30 @@ public class GameController : MonoBehaviour
                             break;
                         }
                         break;
+                    case 9:
+                        GameObject newRisingFloor1 = Instantiate(TilePrefabs.RisingFloor, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                        newRisingFloor1.name = "newRisingFloor1" + i.ToString() + "_" + j.ToString();
+                        newRisingFloor1.GetComponent<RisingFloorScript>().mod = 6;
+                        string s = A[i, j].Split("."[0])[1];
+                        if (s.Length == 2) newRisingFloor1.GetComponent<RisingFloorScript>().activeRange = new Vector2Int(s[0] - '0', s[1] - '0');
+                        else newRisingFloor1.GetComponent<RisingFloorScript>().activeRange = new Vector2Int(s[0] - '0', s[0] - '0');
+                        break;
+                    case 10:
+                        GameObject newRisingFloor2 = Instantiate(TilePrefabs.RisingFloor, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                        newRisingFloor2.name = "newRisingFloor1" + i.ToString() + "_" + j.ToString();
+                        newRisingFloor2.GetComponent<RisingFloorScript>().mod = 3;
+                        string ss = A[i, j].Split("."[0])[1];
+                        if (ss.Length == 2) newRisingFloor2.GetComponent<RisingFloorScript>().activeRange = new Vector2Int(ss[0] - '0', ss[1] - '0');
+                        else newRisingFloor2.GetComponent<RisingFloorScript>().activeRange = new Vector2Int(ss[0] - '0', ss[0] - '0');
+                        break;
+                    case 11:
+                        GameObject newRisingFloor3 = Instantiate(TilePrefabs.RisingFloor, new Vector3(i, j, transform.position.z), Quaternion.identity);
+                        newRisingFloor3.name = "newRisingFloor1" + i.ToString() + "_" + j.ToString();
+                        newRisingFloor3.GetComponent<RisingFloorScript>().mod = 2;
+                        string sss = A[i, j].Split("."[0])[1];
+                        if (sss.Length == 2) newRisingFloor3.GetComponent<RisingFloorScript>().activeRange = new Vector2Int(sss[0] - '0', sss[1] - '0');
+                        else newRisingFloor3.GetComponent<RisingFloorScript>().activeRange = new Vector2Int(sss[0] - '0', sss[0] - '0');
+                        break;
                     case 12:
                         GameObject newBlock = Instantiate(TilePrefabs.BlockPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
                         newBlock.name = "Block" + i.ToString() + "_" + j.ToString();
@@ -230,13 +255,14 @@ public class GameController : MonoBehaviour
                     case 14:
                         GameObject newOpenGate = Instantiate(TilePrefabs.GatePrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
                         newOpenGate.name = "Gate" + i.ToString() + "_" + j.ToString();
-                        newOpenGate.GetComponent<GateScript>().open = true;
+                        newOpenGate.GetComponent<GateScript>().state = false;
+
                         Map[i][j] = newOpenGate;
                         break;
                     case 15:
                         GameObject newCloseGate = Instantiate(TilePrefabs.GatePrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
                         newCloseGate.name = "Gate" + i.ToString() + "_" + j.ToString();
-                        newCloseGate.GetComponent<GateScript>().open = false;
+                        newCloseGate.GetComponent<GateScript>().state = true;
                         Map[i][j] = newCloseGate;
                         break;
                     case 16:
@@ -289,9 +315,9 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void InverseGate()
+    public void AddGate(int val)
     {
-        gateStatus = !gateStatus;
+        gateStatus += val;
     }
 
     public GameObject GetMapGameObject(int i, int j)
