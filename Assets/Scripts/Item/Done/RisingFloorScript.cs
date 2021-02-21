@@ -23,17 +23,17 @@ public class RisingFloorScript : MonoBehaviour
         isActive = (val >= activeRange.x && val <= activeRange.y);
         int x = (int)gameObject.transform.position.x, y = (int)gameObject.transform.position.y;
         GameObject goj;
-        if ((goj = stage.GetMapGameObject(x, y)) != null)
+        if (!isActive && (goj = stage.GetMapGameObject(x, y)) != null)
         {
-            if(goj.GetComponent<BlockScript>() != null)
+            if (goj.GetComponent<BlockScript>() != null)
             {
                 stage.SetMapGameObject(x, y, null);
                 Destroy(goj);
             }
             else
             {
-                //restart 
-
+                   stage.RestartStage();
+                
             }
         }
 

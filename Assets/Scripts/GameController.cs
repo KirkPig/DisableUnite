@@ -55,6 +55,11 @@ public class GameController : MonoBehaviour
         GameManager.instance.RestartGame(stageName);
     }
 
+    public void BackButtonClicked()
+    {
+        GameManager.instance.BackMainMenu();
+    }
+
     public void LoadGame()
     {
         GenerateMap();
