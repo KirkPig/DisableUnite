@@ -9,6 +9,9 @@ public class GameController : MonoBehaviour
     public TextAsset csvFile;
     public TextAsset spawnFile;
     public TextAsset buttonFile;
+    public EndBatScript endBat;
+    public EndPlantScript endPlant;
+    public EndSlimeScript endSlime;
     public GameObject MainCamera;
     public bool gateStatus;
     public int key;
@@ -20,7 +23,7 @@ public class GameController : MonoBehaviour
     private GameObject[][] Map = new GameObject[32][];
     private GameObject Bat;
     private List<Vector3> bat_vision;
-    
+    public bool isEnd;
 
     private void Awake()
     {
@@ -256,18 +259,21 @@ public class GameController : MonoBehaviour
                         {
                             GameObject newEndBat = Instantiate(TilePrefabs.EndBatPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
                             newEndBat.name = "EndBat" + i.ToString() + "_" + j.ToString();
+                            endBat = newEndBat.GetComponent<EndBatScript>();
                             // Map[i][j] = newEndBat;
                         }
                         else if (A[i, j] == "17.2")
                         {
                             GameObject newEndPlant = Instantiate(TilePrefabs.EndPlantPrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
                             newEndPlant.name = "EndPlant" + i.ToString() + "_" + j.ToString();
+                            endPlant = newEndPlant.GetComponent<EndPlantScript>();
                             // Map[i][j] = newEndPlant;
                         }
                         else if (A[i, j] == "17.3")
                         {
                             GameObject newEndSlime = Instantiate(TilePrefabs.EndSlimePrefab, new Vector3(i, j, transform.position.z), Quaternion.identity);
                             newEndSlime.name = "EndSlime" + i.ToString() + "_" + j.ToString();
+                            endSlime = newEndSlime.GetComponent<EndSlimeScript>();
                             // Map[i][j] = newEndSlime;
                         }
                         break;
@@ -314,7 +320,7 @@ public class GameController : MonoBehaviour
         {
             BatVision.SetActive(false);
         }
-
+        isEnd = ((endBat == null || endBat.isEndBat) && (endPlant == null || endPlant.isEndPlant) && (endSlime == null || endSlime.isEndSlime));
     }
 
     void getNoise(){
