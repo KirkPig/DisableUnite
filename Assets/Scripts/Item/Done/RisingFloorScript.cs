@@ -36,5 +36,8 @@ public class RisingFloorScript : MonoBehaviour
 
             }
         }
+
+        GetComponent<Animator>().SetBool("Trigger", isActive);
+
     }
 }
