@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public GameObject loadingScreen;
     private List<AsyncOperation> LoadingOps;
+    public string stageSelected = "Stage0";
+
 
     private void Awake()
     {
@@ -29,6 +31,16 @@ public class GameManager : MonoBehaviour
         StartCoroutine(LoadingCheck().GetEnumerator());
 
     }
+
+    public void StartGame(string stage)
+    {
+        LoadingOps.Add(SceneManager.UnloadSceneAsync("MainMenuScene"));
+        LoadingOps.Add(SceneManager.LoadSceneAsync("Stage0", LoadSceneMode.Additive));
+
+        StartCoroutine(LoadingCheck(stage).GetEnumerator());
+
+    }
+
     /*
 
     public void StageSelectSceneLoad()
@@ -68,6 +80,39 @@ public class GameManager : MonoBehaviour
         LoadingOps.Clear();
         loadingScreen.SetActive(false);
         
+    }
+
+    IEnumerable LoadingCheck(string stage)
+    {
+
+        loadingScreen.SetActive(true);
+        // Debug.Log("Loading..");
+
+        for (int i = 0; i < LoadingOps.Count; i++)
+        {
+            while (!LoadingOps[i].isDone)
+            {
+                yield return null;
+            }
+        }
+
+        // Debug.Log("Loading Done");
+        LoadingOps.Clear();
+
+        
+
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("Stage0"));
+
+        GameObject.Find("GameController").GetComponent<GameController>().csvFile = Resources.Load("MapCSV/" + stage, typeof(TextAsset)) as TextAsset;
+        GameObject.Find("GameController").GetComponent<GameController>().buttonFile = Resources.Load("ButtonPointCSV/button" + stage, typeof(TextAsset)) as TextAsset;
+        GameObject.Find("GameController").GetComponent<GameController>().spawnFile = Resources.Load("SpawnPointCSV/spawn" + stage, typeof(TextAsset)) as TextAsset;
+        GameObject.Find("GameController").GetComponent<GameController>().LoadGame();
+        GameObject.Find("GameManagerCam").GetComponent<Camera>().enabled = false;
+        GameObject.Find("StageCam").GetComponent<Camera>().enabled = true;
+
+
+        loadingScreen.SetActive(false);
+
     }
 
     void SaveGame()
