@@ -365,6 +365,10 @@ public class GameController : MonoBehaviour
         {
             RestartStage();
         }
+        if(Input.GetKeyDown(KeyCode.B))
+        {
+            //do something
+        }
 
     }
 
