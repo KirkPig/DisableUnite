@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-
+    public GameObject levelComplete;
     public string stageName;
     public TextAsset csvFile;
     public TextAsset spawnFile;
@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour
     public int key;
     public int currentRhytm;
     public float drum;
-    public float drumTime;
+    public const float drumTime = 1;
     public CharacterManager characterManager;
     public GameObject BatVision;
     private GameObject[][] Map = new GameObject[32][];
@@ -333,6 +333,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         Transform t = characterManager.selectedCharacter.transform;
         MainCamera.transform.position = new Vector3(t.position.x, t.position.y, MainCamera.transform.position.z);
         drum += Time.deltaTime;
@@ -354,8 +355,11 @@ public class GameController : MonoBehaviour
         }
         isEnd = ((endBat == null || endBat.isEndBat) && (endPlant == null || endPlant.isEndPlant) && (endSlime == null || endSlime.isEndSlime));
 
-        GameObject.Find("LevelComplete").SetActive(isEnd);
-
+        levelComplete.SetActive(isEnd);
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            RestartStage();
+        }
 
     }
 
