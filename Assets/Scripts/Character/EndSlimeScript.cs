@@ -17,7 +17,7 @@ public class EndSlimeScript : MonoBehaviour
     {
         int x = (int)transform.position.x, y = (int)transform.position.y;
         GameObject goj = stage.GetMapGameObject(x, y);
-        isEndSlime = (goj != null && goj.GetComponent<SlimeCharacter>() != null) 
+        isEndSlime = (goj != null && goj.GetComponent<SlimeCharacter>() != null); 
        
     }
 }
