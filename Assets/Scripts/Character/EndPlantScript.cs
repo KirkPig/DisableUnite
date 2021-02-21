@@ -18,6 +18,6 @@ public class EndPlantScript : MonoBehaviour
     {
         int x = (int)transform.position.x, y = (int)transform.position.y;
         GameObject goj = stage.GetMapGameObject(x, y);
-        if (goj != null && goj.GetComponent<PlantCharacter>() != null) isEndPlant = true;
+        isEndPlant = (goj != null && goj.GetComponent<PlantCharacter>() != null);
     }
 }
