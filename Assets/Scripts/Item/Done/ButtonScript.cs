@@ -54,6 +54,8 @@ public class ButtonScript : MonoBehaviour
             for (int i = 0; i < conveyer.Count; i += 2)
             {
                 Vector2Int direction = conveyer[i + 1] - conveyer[i];
+                if (direction.x != 0) direction.x /= Mathf.Abs(direction.x);
+                if (direction.y != 0) direction.y /= Mathf.Abs(direction.y);
                 for (Vector2Int j = new Vector2Int(conveyer[i + 1].x, conveyer[i + 1].y); j != conveyer[i] - direction; j -= direction)
                 {
                     GameObject onConveyer = stage.GetMapGameObject(j.x, j.y);
