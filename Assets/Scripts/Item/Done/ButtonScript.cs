@@ -41,6 +41,12 @@ public class ButtonScript : MonoBehaviour
         {
             stage.AddGate(-1);
             stepOn = false;
+            if(isAlarm)
+            {
+                stage.characterManager.alarm(alarmDestination);
+                GameObject alarm = stage.GetMapGameObject((int)alarmDestination.x, (int)alarmDestination.y);
+                alarm.GetComponent<AlarmScript>().pressed = false;
+            }
         }
     }
     void AlarmAndConveyer()
@@ -48,6 +54,8 @@ public class ButtonScript : MonoBehaviour
         if (isAlarm)
         {
             stage.characterManager.alarm(alarmDestination);
+            GameObject alarm = stage.GetMapGameObject((int)alarmDestination.x, (int)alarmDestination.y);
+            alarm.GetComponent<AlarmScript>().pressed = true;
         }
         if (conveyer.Count != 0)
         {
