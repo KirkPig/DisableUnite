@@ -23,7 +23,9 @@ public class GateScript : MonoBehaviour, Interactable
     // Update is called once per frame
     void Update()
     {
-        open = (state == stage.gateStatus);
+
+        if (!state) open = (stage.gateStatus == 0);
+        else open = (stage.gateStatus > 0);
         GetComponent<Animator>().SetBool("Open", open);    
     }
     

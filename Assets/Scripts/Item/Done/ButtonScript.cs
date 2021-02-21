@@ -34,12 +34,12 @@ public class ButtonScript : MonoBehaviour
             if (!stepOn)
             {
                 stepOn = true;
-                stage.InverseGate();
+                stage.AddGate(1);
             }
         }
         else if(stepOn)
         {
-            stage.InverseGate();
+            stage.AddGate(-1);
             stepOn = false;
         }
     }
