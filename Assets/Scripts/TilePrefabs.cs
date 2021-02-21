@@ -34,6 +34,5 @@ public class TilePrefabs
     public static GameObject ConveyerRight = Resources.Load("Prefabs/ConveyerRight", typeof(GameObject)) as GameObject;
     public static GameObject ConveyerUp = Resources.Load("Prefabs/ConveyerUp", typeof(GameObject)) as GameObject;
     public static GameObject ConveyerDown = Resources.Load("Prefabs/ConveyerDown", typeof(GameObject)) as GameObject;
-
-
+    public static GameObject RisingFloor = Resources.Load("Prefabs/RisingFloor", typeof(GameObject)) as GameObject;
 }

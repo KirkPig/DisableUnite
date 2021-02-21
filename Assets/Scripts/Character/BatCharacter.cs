@@ -48,7 +48,7 @@ public class BatCharacter : MonoBehaviour, ICharacter, Interactable
             }
             else if (result == 3)
             {
-                //restart
+                stage.RestartStage();
             }
          
         }
