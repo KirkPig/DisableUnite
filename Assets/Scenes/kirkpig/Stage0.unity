@@ -704,6 +704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f65f60c643532e4eae596d67eef86cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelComplete: {fileID: 1308117351}
   stageName: 
   csvFile: {fileID: 0}
   spawnFile: {fileID: 0}
