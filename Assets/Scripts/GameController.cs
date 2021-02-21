@@ -62,11 +62,14 @@ public class GameController : MonoBehaviour
         int n = (int) float.Parse(A[0, 0]), it = 1;
         for(int i = 0; i < n; i++)
         {
+            Debug.Log("i=" + i.ToString());
             int x = int.Parse(A[it, 0]), y = int.Parse(A[it, 1]);
             GameObject button = Instantiate(TilePrefabs.ButtonPrefab, new Vector3((float)x, (float)y, transform.position.z), Quaternion.identity);
             button.name = "Button" + x.ToString() + "_" + y.ToString();
+            it++;
+            Debug.Log(button.name);
             //get isAlarm
-            int isAlarm = (int) float.Parse( A[it, 0] );
+            int isAlarm = int.Parse( A[it, 0] );
             ButtonScript buttonScript = button.GetComponent<ButtonScript>();
             if(isAlarm == 1)
             {
@@ -77,25 +80,27 @@ public class GameController : MonoBehaviour
             it++;
             buttonScript.conveyer = new List<Vector2Int>();
             int conveyerLength = int.Parse(A[it, 0]);
+            Debug.Log("conveyer length:" + conveyerLength.ToString());
             it++;
             for(int j = 0; j < conveyerLength; j ++, it ++)
             {
                 int begx = int.Parse(A[it, 0]), begy = int.Parse(A[it, 1]);
+                Debug.Log("BegX:" + begx.ToString() + "BegY:" + begy.ToString());
                 buttonScript.conveyer.Add(new Vector2Int(begx, begy));
                 int endx = int.Parse(A[it, 2]), endy = int.Parse(A[it, 3]);
+                Debug.Log("endX:" + endx.ToString() + "endY:" + endy.ToString());
                 buttonScript.conveyer.Add(new Vector2Int(endx, endy));
                 int dx = (endx - begx) == 0 ? 0 : (endx - begx < 0 ? -1 : 1);
-                int dy = (endy - begy) == 0 ? 0 : (endx - begx < 0 ? -1 : 1);
-                for(;begx != endx || begy != endy; begx += dx, begy += dy)
+                int dy = (endy - begy) == 0 ? 0 : (endy - begy < 0 ? -1 : 1);
+                Debug.Log("dx:" + dx.ToString() + "dy:" + dy.ToString());
+                GameObject conveyerPrefab;
+                if (dx == 1) conveyerPrefab = TilePrefabs.ConveyerRight;
+                else if (dx == -1) conveyerPrefab = TilePrefabs.ConveyerLeft;
+                else if (dy == 1) conveyerPrefab = TilePrefabs.ConveyerUp;
+                else conveyerPrefab = TilePrefabs.ConveyerDown;
+                for (;begx != endx + dx|| begy != endy + dy; begx += dx, begy += dy)
                 {
-                    GameObject convayerPrefab;
-                    //set convayerPrefab  4 cases for sprite
-                    
-
-                    
-                    //end set 
-                   //  Instantiate(convayerPrefab, new Vector3((float) begx, (float) begy, transform.position.z), Quaternion.identity);
-
+                   Instantiate(conveyerPrefab, new Vector3((float) begx, (float) begy, transform.position.z), Quaternion.identity);
                 }
             }
             buttonScript.cooldownTime = float.Parse(A[it, 0]);
