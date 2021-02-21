@@ -40,16 +40,22 @@ public class GameController : MonoBehaviour
          * 
          */
 
-        GenerateMap();
-        Spawn();
-        GenerateButton();
         
-
-        drum = 0f;
-        key = 0;
 
 
     }
+
+    public void LoadGame()
+    {
+        GenerateMap();
+        Spawn();
+        GenerateButton();
+
+
+        drum = 0f;
+        key = 0;
+    }
+
     private void GenerateButton()
     {
         string[,] A = ReadCSV.ReadCSVFileNoReverse(buttonFile.text);
