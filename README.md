@@ -1,5 +1,7 @@
 # The Wimpies Unite
 
+> **This is only a developing part, not the actual game.**
+
 In this cruel world, in a dungeon. Dungeon mobs: Bat, Plant and Slime, too tired to be a mob in a dungeon. You are the guiding spirit wandering in the dungeon, having pity for the wimpy gang, so you decide to guide them by controlling them. 
 
 Help a blind bat, a noisy plant-in-a-pot and an airhead slime escape this cruel dungeon!
